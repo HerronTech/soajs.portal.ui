@@ -52,7 +52,7 @@ uracApp.controller("uracListTenantsModuleQaCtrl", ['$scope', 'ngDataApi', '$cook
 	};
 
 	if ($scope.access.listTenants) {
-		if ($cookies.getObject('urac_merchant') && $cookies.getObject('urac_merchant').code) {
+		if ($cookies.getObject('urac_merchant', {'domain': interfaceDomain}) && $cookies.getObject('urac_merchant', {'domain': interfaceDomain}).code) {
 			$scope.$parent.go('/urac-management/members');
 		}
 		else {
@@ -78,11 +78,11 @@ uracApp.controller('uracMembersModuleQaCtrl', ['$scope', '$cookies', '$localStor
 	};
 	constructModulePermissions($scope, $scope.access.owner, permissions);
 
-	$scope.tName = $cookies.getObject('urac_merchant').name;
+	$scope.tName = $cookies.getObject('urac_merchant', {'domain': interfaceDomain}).name;
 	$scope.userCookie = $localStorage.soajs_user;
 	$scope.backToList = function () {
-		$cookies.remove('urac_merchant');
-		$scope.$parent.go('/urac-management');
+		$cookies.remove('urac_merchant', {'domain': interfaceDomain});
+		$scope.$parent.go('/urac-management', {'domain': interfaceDomain});
 	};
 }]);
 
@@ -111,7 +111,7 @@ uracApp.controller('tenantMembersModuleQaCtrl', ['$scope', 'ngDataApi', '$cookie
 				"routeName": "/urac/owner/admin/users/count",
 				"proxy": true,
 				"params": {
-					"tCode": $cookies.getObject('urac_merchant').code,
+					"tCode": $cookies.getObject('urac_merchant', {'domain': interfaceDomain}).code,
 					"__env": $scope.members.currentSelectedEnvironment.toUpperCase()
 				}
 			};
@@ -415,7 +415,7 @@ uracApp.controller('uracAclModuleQaCtrl', ['$scope', '$routeParams', 'ngDataApi'
 					"method": "get",
 					"routeName": "/dashboard/tenant/get",
 					"params": {
-						"id": $cookies.getObject('urac_merchant').id
+						"id": $cookies.getObject('urac_merchant', {'domain': interfaceDomain}).id
 					}
 				};
 
