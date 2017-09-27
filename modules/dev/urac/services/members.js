@@ -119,7 +119,7 @@ serviceUracApp.service('tenantMembersModuleDevHelper', ['ngDataApi', '$timeout',
 		getSendDataFromServer(currentScope, ngDataApi, opts, function (error, response) {
 			overlayLoading.hide();
 			if (error) {
-				currentScope.displayAlert('danger', error.code, true, 'urac', error.message);
+				currentScope.form.displayAlert('danger', error.code, true, 'urac', error.message);
 			}
 			else {
 				var grps = [];

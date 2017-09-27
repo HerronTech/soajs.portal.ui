@@ -4,19 +4,20 @@ contentManagementApp.controller("ContentManagementModuleQaCtrl", ['$scope', 'ngD
 	$scope.$parent.isUserLoggedIn();
 	$scope.access = {};
 	$scope.selectedEnv = $scope.$parent.currentSelectedEnvironment.toUpperCase();
+	$scope.cmModuleQa = cmModuleQa;
 	
 	$scope.loadUIModule = function (oneService) {
 		$scope.hp = false;
 		$scope.selectedService = oneService;
-		
+
 		constructModulePermissions($scope, $scope.access, {
 			'listEntries': [oneService.name, '/list', 'get'],
 			'addEntry': [oneService.name, '/add', 'post'],
-			'updateEntry': [oneService.name, '/update', 'post'],
+			'updateEntry': [oneService.name, '/update', 'put'],
 			'getEntry': [oneService.name, '/get', 'get'],
-			'deleteEntry': [oneService.name, '/delete', 'get']
+			'deleteEntry': [oneService.name, '/delete', 'del']
 		});
-		
+
 		//get schema from remote service.
 		$scope.ui = {
 			grid: false,
@@ -25,7 +26,7 @@ contentManagementApp.controller("ContentManagementModuleQaCtrl", ['$scope', 'ngD
 			top: [],
 			links: {}
 		};
-		
+
 		getSendDataFromServer($scope, ngDataApi, {
 			"method": "get",
 			"routeName": "/" + oneService.name + "/schema",
@@ -101,9 +102,9 @@ contentManagementApp.controller("ContentManagementModuleQaCtrl", ['$scope', 'ngD
 				}, 1000);
 			}
 		});
-		
+
 	};
-	
+
 	$scope.populateCMUI = function () {
 		if ($scope.ui.grid) {
 			$scope.listCMDataEntries();
@@ -114,33 +115,33 @@ contentManagementApp.controller("ContentManagementModuleQaCtrl", ['$scope', 'ngD
 			$compile(el.contents())($scope);
 		}
 	};
-	
+
 	$scope.goBack = function () {
 		var el = angular.element(document.getElementById("contentGridContainer"));
 		el.html("");
 		$compile(el.contents())($scope);
-		
+
 		$scope.selectedService = null;
 		$scope.hp = true;
 	};
-	
+
 	$scope.listCMDataEntries = function () {
-		var grid = angular.copy(cmConfig.grid);
+		var grid = angular.copy(cmModuleQaConfig.grid);
 		for (var i = 0; i < $scope.selectedService.schema.soajsUI.list.columns.length; i++) {
 			$scope.selectedService.schema.soajsUI.list.columns[i].field = $scope.selectedService.schema.soajsUI.list.columns[i].field.replace("fields.", "");
 		}
-		
+
 		grid.columns = $scope.selectedService.schema.soajsUI.list.columns;
 		grid.defaultSortField = $scope.selectedService.schema.soajsUI.list.defaultSortField;
 		grid.defaultSortASC = $scope.selectedService.schema.soajsUI.list.defaultSortASC;
-		
+
 		var options = {
 			grid: grid,
 			data: [],
 			left: $scope.ui.left,
 			top: $scope.ui.top
 		};
-		
+
 		getSendDataFromServer($scope, ngDataApi, {
 			//"url": $scope.selectedDomainAddress,
 			"method": "get",
@@ -175,11 +176,11 @@ contentManagementApp.controller("ContentManagementModuleQaCtrl", ['$scope', 'ngD
 			}
 		});
 	};
-	
+
 	$scope.addCMDataEntry = function () {
-		var config = cmConfig.form.add;
+		var config = cmModuleQaConfig.form.add;
 		config.entries = $scope.selectedService.schema.soajsUI.form.add;
-		
+
 		var options = {
 			timeout: $timeout,
 			form: config,
@@ -201,14 +202,14 @@ contentManagementApp.controller("ContentManagementModuleQaCtrl", ['$scope', 'ngD
 								}
 							});
 						}
-						
+
 						var files = cmModuleQaService.extractFilesFromPostedData($scope, config, formData);
 						if (files === false) {
 							$scope.form.displayAlert('danger', translation.makeSureYouHaveFilledInputs[LANG]);
 						}
 						else {
 							getSendDataFromServer($scope, ngDataApi, {
-								"method": "post",
+								"method": "send",
 								"routeName": "/" + $scope.selectedService.name + $scope.ui.links['add'].v,
 								"data": formData,
 								"params": {
@@ -219,7 +220,7 @@ contentManagementApp.controller("ContentManagementModuleQaCtrl", ['$scope', 'ngD
 									$scope.form.displayAlert('danger', error.message);
 								}
 								else {
-									if (typeof(files) === 'object' && Object.keys(files).length > 0) {
+									if (files && typeof(files) === 'object' && Object.keys(files).length > 0) {
 										cmModuleQaService.UploadFile($scope, config, 'add', files, response, '/' + $scope.selectedService.name + "/upload", function (error) {
 											if (error) {
 												$scope.form.displayAlert('danger', error);
@@ -256,7 +257,7 @@ contentManagementApp.controller("ContentManagementModuleQaCtrl", ['$scope', 'ngD
 		};
 		buildFormWithModal($scope, $modal, options);
 	};
-	
+
 	$scope.editCMDataEntry = function (data) {
 		getSendDataFromServer($scope, ngDataApi, {
 			"method": "get",
@@ -282,15 +283,15 @@ contentManagementApp.controller("ContentManagementModuleQaCtrl", ['$scope', 'ngD
 						data[oneField] = response[oneField];
 					}
 				});
-				
+
 				editAndSaveEntry(data);
 			}
 		});
-		
+
 		function editAndSaveEntry(data) {
-			var config = cmConfig.form.update;
+		var config = cmModuleQaConfig.form.update;
 			config.entries = $scope.selectedService.schema.soajsUI.form.update;
-			
+
 			//combine config entries of input type files and data from gcs database
 			config.entries.forEach(function (oneFormField) {
 				if (['audio', 'video', 'image', 'document'].indexOf(oneFormField.type) !== -1) {
@@ -311,7 +312,7 @@ contentManagementApp.controller("ContentManagementModuleQaCtrl", ['$scope', 'ngD
 					}
 				}
 			});
-			
+
 			var options = {
 				timeout: $timeout,
 				form: config,
@@ -335,14 +336,14 @@ contentManagementApp.controller("ContentManagementModuleQaCtrl", ['$scope', 'ngD
 									}
 								});
 							}
-							
+
 							var files = cmModuleQaService.extractFilesFromPostedData($scope, config, formData);
 							if (files === false) {
 								$scope.form.displayAlert('danger', translation.makeSureYouHaveFilledInputs[LANG]);
 							}
 							else {
 								getSendDataFromServer($scope, ngDataApi, {
-									"method": "post",
+									"method": "put",
 									"routeName": "/" + $scope.selectedService.name + $scope.ui.links['update'],
 									"params": {
 										"id": data._id,
@@ -355,7 +356,7 @@ contentManagementApp.controller("ContentManagementModuleQaCtrl", ['$scope', 'ngD
 									}
 									else {
 										var hasContentToUpload = false;
-										if (typeof(files) === 'object' && Object.keys(files).length > 0) {
+										if (files && typeof(files) === 'object' && Object.keys(files).length > 0) {
 											for (var type in files) {
 												if (files[type].length > 0) {
 													hasContentToUpload = true;
@@ -401,7 +402,7 @@ contentManagementApp.controller("ContentManagementModuleQaCtrl", ['$scope', 'ngD
 			buildFormWithModal($scope, $modal, options);
 		}
 	};
-	
+
 	$scope.viewCMDataEntry = function (data) {
 		getSendDataFromServer($scope, ngDataApi, {
 			"method": "get",
@@ -428,7 +429,7 @@ contentManagementApp.controller("ContentManagementModuleQaCtrl", ['$scope', 'ngD
 						$scope.author = $scope.data.author;
 						$scope.created = $scope.data.created;
 						$scope.modified = $scope.data.modified;
-						
+
 						//download files
 						var filesNames = {};
 						config.forEach(function (oneEntry) {
@@ -442,13 +443,13 @@ contentManagementApp.controller("ContentManagementModuleQaCtrl", ['$scope', 'ngD
 						});
 						if (Object.keys(filesNames).length > 0) {
 							$scope.files = filesNames;
-							
+
 							for (var fName in $scope.files) {
 								if ($scope.files[fName].info && $scope.files[fName].info.length > 0) {
 									$scope.files[fName].info.forEach(function (oneFile) {
 										var length = Math.ceil(oneFile.length / 1024);
 										if (length > 1000) {
-											oneFile.length = length + ' MB';
+											oneFile.length = Math.round(length/ 10.24)/100 + ' MB';
 										}
 										else if (length > 1) {
 											oneFile.length = length + ' KB';
@@ -460,7 +461,7 @@ contentManagementApp.controller("ContentManagementModuleQaCtrl", ['$scope', 'ngD
 								}
 							}
 						}
-						
+
 						delete $scope.data['$$hashKey'];
 						delete $scope.data['_id'];
 						delete $scope.data['soajsauth'];
@@ -470,11 +471,11 @@ contentManagementApp.controller("ContentManagementModuleQaCtrl", ['$scope', 'ngD
 						for (var f in filesNames) {
 							delete $scope.data.fields[f];
 						}
-						
+
 						$scope.ok = function () {
 							$modalInstance.dismiss('ok');
 						};
-						
+
 						$scope.downloadFile = function (oneEntry, mediaType) {
 							scope.downloadFile(oneEntry, mediaType);
 						};
@@ -483,11 +484,11 @@ contentManagementApp.controller("ContentManagementModuleQaCtrl", ['$scope', 'ngD
 			}
 		});
 	};
-	
+
 	$scope.deleteCMDataEntry = function (data) {
 		getSendDataFromServer($scope, ngDataApi, {
 			//"url": $scope.selectedDomainAddress,
-			"method": "get",
+			"method": "del",
 			"routeName": "/" + $scope.selectedService.name + $scope.ui.links['delete'],
 			"params": {
 				"id": data._id,
@@ -503,11 +504,11 @@ contentManagementApp.controller("ContentManagementModuleQaCtrl", ['$scope', 'ngD
 			}
 		});
 	};
-	
+
 	$scope.deleteCMDataEntries = function () {
 		var config = {
-            "method": "get",
 			//"url": $scope.selectedDomainAddress,
+			"method": "del",
 			"routeName": "/" + $scope.selectedService.name + $scope.ui.links['delete'],
 			"params": {
 				'id': '%id%',
@@ -518,16 +519,16 @@ contentManagementApp.controller("ContentManagementModuleQaCtrl", ['$scope', 'ngD
 				'success': translation.dataAddedSuccessfully[LANG]
 			}
 		};
-		
+
 		multiRecordUpdate(ngDataApi, $scope, config, function () {
 			$scope.listCMDataEntries();
 		});
 	};
-	
+
 	$scope.downloadFile = function (oneEntry, mediaType) {
 		cmModuleQaService.downloadFile($scope, oneEntry, mediaType);
 	};
-	
+
 	cmModuleQaService.loadServices($scope);
-	injectFiles.injectCss("modules/qa/contentManagement/contentManagement.css");
+	injectFiles.injectCss(cmModuleQa + "/contentManagement.css");
 }]);

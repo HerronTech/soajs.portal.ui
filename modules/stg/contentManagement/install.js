@@ -1,5 +1,7 @@
 "use strict";
 
+var cmModuleStg = uiModuleStg + '/contentManagement';
+
 var cmModuleStgTranslation = {
 	"contentManagement": {
 		"ENG": "Content Management",
@@ -94,7 +96,7 @@ var cmModuleStgTranslation = {
 		"ENG": "No Content Management Services are deployed yet. Head to the",
 		"FRA": "No Content Management Services are deployed yet. Head to the"
 	},
-	
+
 	"sectionAndDeployThem": {
 		"ENG": "Section and deploy them.",
 		"FRA": "Section and deploy them."
@@ -121,7 +123,7 @@ var cmModuleStgNav = [
 			'method': 'get'
 		},
 		'url': '#/content-management',
-		'tplPath': 'modules/stg/contentManagement/directives/list.tmpl',
+		'tplPath': cmModuleStg + '/directives/list.tmpl',
 		'icon': 'newspaper',
 		'pillar': {
 			'name': 'operate',
@@ -132,8 +134,13 @@ var cmModuleStgNav = [
 		'contentMenu': true,
 		'tracker': true,
 		'order': 100,
-		'scripts': ['modules/stg/contentManagement/config.js', 'modules/stg/contentManagement/controller.js', 'modules/stg/contentManagement/services/contentManagement.js'],
+		'scripts': [
+			cmModuleStg + '/config.js',
+			cmModuleStg + '/controller.js',
+			cmModuleStg + '/services/contentManagement.js'
+		],
 		'ancestor': [translation.home[LANG]]
 	}
 ];
+
 navigation = navigation.concat(cmModuleStgNav);

@@ -1,5 +1,7 @@
 "use strict";
 
+var cmModuleQa = uiModuleQa + '/contentManagement';
+
 var cmModuleQaTranslation = {
 	"contentManagement": {
 		"ENG": "Content Management",
@@ -94,7 +96,7 @@ var cmModuleQaTranslation = {
 		"ENG": "No Content Management Services are deployed yet. Head to the",
 		"FRA": "No Content Management Services are deployed yet. Head to the"
 	},
-	
+
 	"sectionAndDeployThem": {
 		"ENG": "Section and deploy them.",
 		"FRA": "Section and deploy them."
@@ -121,7 +123,7 @@ var cmModuleQaNav = [
 			'method': 'get'
 		},
 		'url': '#/content-management',
-		'tplPath': 'modules/qa/contentManagement/directives/list.tmpl',
+		'tplPath': cmModuleQa + '/directives/list.tmpl',
 		'icon': 'newspaper',
 		'pillar': {
 			'name': 'operate',
@@ -132,8 +134,13 @@ var cmModuleQaNav = [
 		'contentMenu': true,
 		'tracker': true,
 		'order': 100,
-		'scripts': ['modules/qa/contentManagement/config.js', 'modules/qa/contentManagement/controller.js', 'modules/qa/contentManagement/services/contentManagement.js'],
+		'scripts': [
+			cmModuleQa + '/config.js',
+			cmModuleQa + '/controller.js',
+			cmModuleQa + '/services/contentManagement.js'
+		],
 		'ancestor': [translation.home[LANG]]
 	}
 ];
+
 navigation = navigation.concat(cmModuleQaNav);

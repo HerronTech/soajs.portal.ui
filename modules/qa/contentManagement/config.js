@@ -1,5 +1,5 @@
 "use strict";
-var cmConfig = {
+var cmModuleQaConfig = {
 	permissions: {},
 	
 	grid: {

@@ -2,7 +2,7 @@
 var cmService = soajsApp.components;
 
 cmService.service('cmModuleStgService', ['ngDataApi', '$cookies', '$http', 'Upload', '$compile', function (ngDataApi, $cookies, $http, Upload, $compile) {
-	var access_token = $cookies.get('access_token');
+	var access_token = $cookies.get('access_token', {'domain': interfaceDomain});
 	
     function loadServices(currentScope) {
         var services = [];
@@ -33,7 +33,7 @@ cmService.service('cmModuleStgService', ['ngDataApi', '$cookies', '$http', 'Uplo
             method: 'get',
             headers: {
                 "Accept": oneFile.contentType,
-	            "key": $cookies.get("soajs_dashboard_key")
+	            "key": $cookies.get("soajs_dashboard_key", {'domain': interfaceDomain})
             },
             responseType: 'arraybuffer',
             params: {
@@ -88,7 +88,7 @@ cmService.service('cmModuleStgService', ['ngDataApi', '$cookies', '$http', 'Uplo
     }
 
     function UploadFile(currentScope, config, method, files, apiData, url, cb) {
-        var soajsAuthCookie = $cookies.get('soajs_auth');
+        var soajsAuthCookie = $cookies.get('soajs_auth', {'domain': interfaceDomain});
 
         var max = 0, counter = 0;
         var err = [];
@@ -121,7 +121,7 @@ cmService.service('cmModuleStgService', ['ngDataApi', '$cookies', '$http', 'Uplo
 		                    'uploadUrl': url,
 		                    'headers': {
 			                    "soajsauth": soajsAuthCookie,
-			                    "key": $cookies.get("soajs_dashboard_key")
+			                    "key": $cookies.get("soajs_dashboard_key", {'domain': interfaceDomain})
 		                    },
 		                    'progress': progress,
 		                    "data": {

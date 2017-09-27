@@ -107,16 +107,16 @@ var usersModuleProdConfig = {
 					'name': 'code',
 					'label': translation.code[LANG],
 					'type': 'text',
-					'placeholder': '',
+					'placeholder': translation.formGroupCodePlaceholder[LANG],
 					'value': '',
-					'tooltip': '',
+					'tooltip': translation.formGroupCodeTooltip[LANG],
 					'required': true
 				},
 				{
 					'name': 'name',
 					'label': translation.name[LANG],
 					'type': 'text',
-					'placeholder': '',
+					'placeholder': translation.formGroupNamePlaceHolder[LANG],
 					'value': '',
 					'tooltip': '',
 					'required': true
@@ -126,7 +126,7 @@ var usersModuleProdConfig = {
 					'label': translation.description[LANG],
 					'type': 'textarea',
 					'rows': 2,
-					'placeholder': '',
+					'placeholder': translation.formGroupDescriptionPlaceholder[LANG],
 					'value': '',
 					'tooltip': '',
 					'required': true
@@ -145,7 +145,7 @@ var usersModuleProdConfig = {
 					'type': 'checkbox',
 					'placeholder': '',
 					'value': [],
-					'tooltip': '',
+					'tooltip': translation.formGroupUsersTooltip[LANG],
 					'required': true
 				}
 			]
