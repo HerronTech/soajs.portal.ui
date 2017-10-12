@@ -83,6 +83,10 @@
 					<div id="{{entry.name}}-wrapper" ng-include="'engine/lib/form/plugins/ckeditor.tmpl'"></div>
 				</td>
 				
+				<td ng-switch-when="buttonSlider">
+					<div id="{{entry.name}}-wrapper" ng-include="'engine/lib/form/plugins/buttonSlider.tmpl'"></div>
+				</td>
+				
 				<td ng-switch-default="">
 					<div id="{{entry.name}}-wrapper" ng-include="'engine/lib/form/plugins/default.tmpl'"></div>
 				</td>
