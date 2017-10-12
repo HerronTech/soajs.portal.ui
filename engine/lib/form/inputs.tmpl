@@ -40,6 +40,10 @@
 			<div id="{{entry.name}}-wrapper" ng-include="'engine/lib/form/plugins/date-picker.tmpl'"></div>
 		</td>
 		
+		<td ng-switch-when="accordion">
+			<div id="{{entry.name}}-wrapper" ng-include="'engine/lib/form/plugins/accordion.tmpl'"></div>
+		</td>
+		
 		<td ng-switch-when="group">
 			<div id="{{entry.name}}-wrapper" ng-include="'engine/lib/form/plugins/group.tmpl'"></div>
 		</td>
