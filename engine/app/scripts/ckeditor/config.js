@@ -7,8 +7,6 @@ CKEDITOR.editorConfig = function( config, editorMode) {
 	// Define changes to default configuration here. For example:
 	// config.language = 'fr';
 	// config.uiColor = '#AADC6E';
-    console.log('entered editorConfig for ckeditor'); //wissam 2del
-    console.log('printing editorMode', editorMode); //wissam 2del
 
     config.toolbarGroups = [
     { name: 'clipboard',   groups: [ 'clipboard', 'undo' ] },
