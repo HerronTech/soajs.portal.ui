@@ -79,6 +79,10 @@
 			<div id="{{entry.name}}-wrapper" ng-include="'engine/lib/form/plugins/jsoneditor.tmpl'"></div>
 		</td>
 		
+		<td ng-switch-when="ckeditor">
+			<div id="{{entry.name}}-wrapper" ng-include="'engine/lib/form/plugins/ckeditor.tmpl'"></div>
+		</td>
+		
 		<td ng-switch-default="">
 			<div id="{{entry.name}}-wrapper" ng-include="'engine/lib/form/plugins/default.tmpl'"></div>
 		</td>
