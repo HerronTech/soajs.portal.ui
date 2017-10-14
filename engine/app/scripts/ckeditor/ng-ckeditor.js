@@ -27,11 +27,60 @@ app.run(['$q', '$timeout', function($q, $timeout) {
     }
     CKEDITOR.on('loaded', checkLoaded);
     $timeout(checkLoaded, 100);
-}])
+}]);
 
 app.directive('ckeditor', ['$timeout', '$q', function ($timeout, $q) {
     'use strict';
 
+    function getEditorToolbarSet(type){
+    	let config = {};
+	    switch (type) {
+		    case 'simple':
+			    config.toolbarGroups = [
+				    { name: 'basicstyles', items: [ 'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript'] },
+				    { name: 'paragraph', items: [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-', 'BidiLtr', 'BidiRtl' ] },
+				    { name: 'links', items: [ 'Link', 'Unlink', 'Anchor' ] },
+				    { name: 'insert', items: [ 'Image', 'Smiley', 'SpecialChar' ] }
+			    ];
+			    break;
+		    case 'full':
+			    config.toolbarGroups = [
+				    { name: 'document', items: [ 'Source', '-', 'Save', 'NewPage', 'Preview', 'Print', '-', 'Templates' ] },
+				    { name: 'clipboard', items: [ 'Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo' ] },
+				    { name: 'editing', items: [ 'Find', 'Replace', '-', 'SelectAll', '-', 'Scayt' ] },
+				    { name: 'forms', items: [ 'Form', 'Checkbox', 'Radio', 'TextField', 'Textarea', 'Select', 'Button', 'ImageButton', 'HiddenField' ] },
+				    '/',
+				    { name: 'basicstyles', items: [ 'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'CopyFormatting', 'RemoveFormat' ] },
+				    { name: 'paragraph', items: [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', 'CreateDiv', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-', 'BidiLtr', 'BidiRtl', 'Language' ] },
+				    { name: 'links', items: [ 'Link', 'Unlink', 'Anchor' ] },
+				    { name: 'insert', items: [ 'Image', 'Flash', 'Table', 'HorizontalRule', 'Smiley', 'SpecialChar', 'PageBreak', 'Iframe' ] },
+				    '/',
+				    { name: 'styles', items: [ 'Styles', 'Format', 'Font', 'FontSize' ] },
+				    { name: 'colors', items: [ 'TextColor', 'BGColor' ] },
+				    { name: 'tools', items: [ 'Maximize', 'ShowBlocks' ] }
+			    ];
+			    break;
+		    case 'standard':
+		    default:
+			    config.toolbarGroups = [
+				    { name: 'document', items: [ 'Source', '-', 'Save', 'NewPage', 'Preview', 'Print', '-', 'Templates' ] },
+				    { name: 'clipboard', items: [ 'Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo' ] },
+				    { name: 'editing', items: [ 'Find', 'Replace', '-', 'SelectAll', '-', 'Scayt' ] },
+				    { name: 'links', items: [ 'Link', 'Unlink', 'Anchor' ] },
+				    '/',
+				    { name: 'basicstyles', items: [ 'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript' ] },
+				    { name: 'paragraph', items: [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote',  '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-', 'BidiLtr', 'BidiRtl', 'Language' ] },
+				    { name: 'insert', items: [ 'Image', 'Smiley', 'SpecialChar' ] },
+				    '/',
+				    { name: 'styles', items: [ 'Styles', 'Format', 'Font', 'FontSize' ] },
+				    { name: 'colors', items: [ 'TextColor', 'BGColor' ] },
+				    { name: 'tools', items: [ 'Maximize'] }
+			    ];
+			    break;
+	    }
+	    return config;
+    }
+    
     return {
         restrict: 'AC',
         require: ['ngModel', '^?form'],
@@ -51,25 +100,29 @@ app.directive('ckeditor', ['$timeout', '$q', function ($timeout, $q) {
             var onLoad = function () {
                 var options = {
                     toolbar: 'simple',
-                    toolbar_simple: [
-                        { name: 'styles', items: [ 'Format', 'FontSize', 'TextColor', 'PasteText', 'PasteFromWord', 'RemoveFormat' ] },
-	                    { name: 'basicstyles', items: [ 'Bold', 'Italic', 'Strike', 'Underline' ] },
-                        { name: 'paragraph', items: [ 'BulletedList', 'NumberedList', 'Blockquote' ] },
-                        { name: 'editing', items: ['JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock' ] },
-                        { name: 'forms', items: [ 'Outdent', 'Indent' ] },
-                        { name: 'links', items: [ 'Link', 'Unlink', 'Anchor' ] },
-                        { name: 'insert', items: [ 'Image', 'Table', 'SpecialChar' ] },
-                        { name: 'tools', items: [ 'Undo', 'Redo', 'SpellChecker', 'Maximize' ] },
-                        { name: 'document', items: [ 'PageBreak', 'Source' ] }
-                    ],
+                    toolbar_simple: [],
                     disableNativeSpellChecker: false,
                     uiColor: '#FAFAFA',
                     height: '400px',
                     width: '100%'
                 };
-                if(attrs.ckeditor && attrs.ckeditor !==""){
-                    options = angular.extend(options, JSON.parse(attrs.ckeditor));
+	
+	            let customToolbarOptions = getEditorToolbarSet('standard');
+                if(attrs.ckeditor){
+                	if(typeof attrs.ckeditor === 'string'){
+		                attrs.ckeditor = JSON.parse(attrs.ckeditor);
+	                }
+	
+                	if(attrs.ckeditor.toolbar){
+                	    customToolbarOptions = getEditorToolbarSet(attrs.ckeditor.toolbar);
+	                }
                 }
+	
+	            options.toolbar_simple = customToolbarOptions.toolbarGroups;
+	            if(customToolbarOptions.removeButtons){
+		            options.removeButtons = customToolbarOptions.removeButtons;
+	            }
+	            console.log(options);
 	            
                 var instance = (isTextarea) ? CKEDITOR.replace(element[0], options) : CKEDITOR.inline(element[0], options),
                     configLoaderDef = $q.defer();
