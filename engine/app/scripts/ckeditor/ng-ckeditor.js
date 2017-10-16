@@ -116,17 +116,26 @@ app.directive('ckeditor', ['$timeout', '$q', function ($timeout, $q) {
                 	if(attrs.ckeditor.toolbar){
                 	    customToolbarOptions = getEditorToolbarSet(attrs.ckeditor.toolbar);
 	                }
+	                
+	                if(attrs.ckeditor.ckfinder){
+		                for(let prop in attrs.ckeditor.ckfinder){
+		                	options[prop] = attrs.ckeditor.ckfinder[prop];
+		                }
+	                }
                 }
 	
 	            options.toolbar_simple = customToolbarOptions.toolbarGroups;
 	            if(customToolbarOptions.removeButtons){
 		            options.removeButtons = customToolbarOptions.removeButtons;
 	            }
-	            console.log(options);
 	            
                 var instance = (isTextarea) ? CKEDITOR.replace(element[0], options) : CKEDITOR.inline(element[0], options),
                     configLoaderDef = $q.defer();
-
+	            
+	            if(attrs.ckeditor && attrs.ckeditor.ckfinder){
+	                CKFinder.setupCKEditor( instance );
+	            }
+	            
                 element.bind('$destroy', function () {
                     instance.destroy(
                         false //If the instance is replacing a DOM element, this parameter indicates whether or not to update the element with the instance contents.
