@@ -19,7 +19,11 @@
 				<td ng-switch-when="html" class="typeHtml">
 					<div id="{{entry.name}}-wrapper" ng-include="'engine/lib/form/plugins/html.tmpl'"></div>
 				</td>
-
+				
+				<td ng-switch-when="tabset">
+					<div id="{{entry.name}}-wrapper" ng-include="'engine/lib/form/plugins/tabSet.tmpl'"></div>
+				</td>
+				
 				<td ng-switch-when="radio">
 					<div id="{{entry.name}}-wrapper" ng-include="'engine/lib/form/plugins/radio.tmpl'"></div>
 				</td>
