@@ -22,13 +22,13 @@ if (location && location.port && parseInt(location.port) !== 80) {
 mydomain += ":" + mydomainport;
 
 //set the api domain
-var mydomainAPI = "dashboard-api";
+var mydomainAPI = "portal-api";
 if(customSettings && customSettings.api && customSettings.api !== ''){
 	mydomainAPI = customSettings.api;
 }
 
 //set the key
-var myKey = "9b96ba56ce934ded56c3f21ac9bdaddc8ba4782b7753cf07576bfabcace8632eba1749ff1187239ef1f56dd74377aa1e5d0a1113de2ed18368af4b808ad245bc7da986e101caddb7b75992b14d6a866db884ea8aee5ab02786886ecf9f25e974";
+var myKey = "cc9390e7b7bb0a360c899aa904382def97c642aa25bcbe98b1b737c683b97f7dcd421b510d6cd6f1656bdb0c730baa0cceb7b810e420abd444595c4175961746fd6d771085fd302df4b1055201804c17b3e1cda146fa6a02d3d9dcffbb841081";
 if(customSettings && customSettings.key && customSettings.key !== ''){
 	myKey = customSettings.key;
 }

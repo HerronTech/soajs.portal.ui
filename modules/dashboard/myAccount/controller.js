@@ -366,54 +366,19 @@ myAccountApp.controller('loginCtrl', ['$scope', 'ngDataApi', '$cookies', 'isUser
 			function getKeys() {
 				getSendDataFromServer($scope, ngDataApi, {
 					"method": "get",
-					"routeName": "/dashboard/key/get",
+					"routeName": "/key/permission/get",
 					"params": {"main": false}
 				}, function (error, response) {
+					overlayLoading.hide();
 					if (error) {
-						overlayLoading.hide();
 						$cookies.remove('access_token', {'domain': interfaceDomain});
 						$cookies.remove('refresh_token', {'domain': interfaceDomain});
 						$scope.$parent.displayAlert('danger', error.code, true, 'dashboard', error.message);
 					}
 					else {
 						$cookies.put("soajs_dashboard_key", response.extKey, {'domain': interfaceDomain});
-						getPermissions();
-					}
-				});
-			}
-			
-			function getPermissions() {
-				getSendDataFromServer($scope, ngDataApi, {
-					"method": "get",
-					"routeName": "/dashboard/permissions/get"
-				}, function (error, response) {
-					overlayLoading.hide();
-					if (error) {
-						$localStorage.soajs_user = null;
-						$cookies.remove('access_token', {'domain': interfaceDomain});
-						$cookies.remove('refresh_token', {'domain': interfaceDomain});
-						$cookies.remove('soajs_dashboard_key', {'domain': interfaceDomain});
-						$scope.$parent.displayAlert('danger', error.code, true, 'dashboard', error.message);
-					}
-					else {
 						var oldSystem = false;
-						$localStorage.acl_access = {};
-						var se = Object.keys(response.acl);
-						for (var j = 0; j < se.length; j++) {
-							if (Object.hasOwnProperty.call(response.acl[se[j]], 'access') || response.acl[se[j]].apis || response.acl[se[j]].apisRegExp || response.acl[se[j]].apisPermission) {
-								oldSystem = true;
-								break;
-							}
-						}
-						if (oldSystem) {
-							for (var i in response.environments) {
-								$localStorage.acl_access[response.environments[i].code.toLowerCase()] = response.acl;
-							}
-						}
-						else {
-							$localStorage.acl_access = response.acl;
-						}
-						$localStorage.sites = response.sites;
+						$localStorage.acl_access = response.acl;
 						$localStorage.environments = response.environments;
 						response.environments.forEach(function (oneEnv) {
 							if (oneEnv.code.toLowerCase() === 'dashboard') {
