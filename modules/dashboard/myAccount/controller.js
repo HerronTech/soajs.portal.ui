@@ -369,15 +369,33 @@ myAccountApp.controller('loginCtrl', ['$scope', 'ngDataApi', '$cookies', 'isUser
 					"routeName": "/key/permission/get",
 					"params": {"main": false}
 				}, function (error, response) {
-					overlayLoading.hide();
 					if (error) {
+						overlayLoading.hide();
 						$cookies.remove('access_token', {'domain': interfaceDomain});
 						$cookies.remove('refresh_token', {'domain': interfaceDomain});
 						$scope.$parent.displayAlert('danger', error.code, true, 'dashboard', error.message);
 					}
 					else {
 						$cookies.put("soajs_dashboard_key", response.extKey, {'domain': interfaceDomain});
-						var oldSystem = false;
+						getPermissions();
+					}
+				});
+			}
+			
+			function getPermissions() {
+				getSendDataFromServer($scope, ngDataApi, {
+					"method": "get",
+					"routeName": "/key/permission/get"
+				}, function (error, response) {
+					overlayLoading.hide();
+					if (error) {
+						$localStorage.soajs_user = null;
+						$cookies.remove('access_token', {'domain': interfaceDomain});
+						$cookies.remove('refresh_token', {'domain': interfaceDomain});
+						$cookies.remove('soajs_dashboard_key', {'domain': interfaceDomain});
+						$scope.$parent.displayAlert('danger', error.code, true, 'dashboard', error.message);
+					}
+					else {
 						$localStorage.acl_access = response.acl;
 						$localStorage.environments = response.environments;
 						response.environments.forEach(function (oneEnv) {
