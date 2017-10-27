@@ -4,7 +4,7 @@
  * build the access permissions of a module from permissionsObj
  */
 function constructModulePermissions(scope, access, permissionsObj, forceEnv) {
-	var exclude = ['urac', 'dashboard'];
+	var exclude = ['urac'];
 	for (var permission in permissionsObj) {
 		if (Array.isArray(permissionsObj[permission])) {
 			var env;
@@ -12,7 +12,7 @@ function constructModulePermissions(scope, access, permissionsObj, forceEnv) {
 				env = forceEnv;
 			}
 			else {
-				env = 'dashboard';
+				env = 'portal';
 				if (exclude.indexOf(permissionsObj[permission][0]) === -1) {
 					env = scope.$parent.currentSelectedEnvironment.toLowerCase();
 				}
@@ -45,7 +45,7 @@ function getSendDataFromServer($scope, ngDataApi, options, callback) {
 	};
 	
 	var pathParams = options.routeName.split("/");
-	var exclude = ['urac', 'dashboard', 'oauth'];
+	var exclude = ['urac', 'oauth', 'key'];
 	if (exclude.indexOf(pathParams[1]) !== -1) {
 		if (options.proxy && $scope.checkAuthEnvCookie()) {
 			apiOptions.url = (options.url) ? options.url + "/proxy/redirect" : apiConfiguration.domain + "/proxy/redirect";
