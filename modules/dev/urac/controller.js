@@ -6,7 +6,7 @@ uracApp.controller("uracListTenantsModuleDevCtrl", ['$scope', 'ngDataApi', '$coo
 	$scope.access = {};
 	$scope.selectedEnv = $scope.$parent.currentSelectedEnvironment.toUpperCase();
 	var permissions = {
-		"listTenants": ['dashboard', '/tenant/list', 'get']
+		"listTenants": ['urac', '/tenant/list', 'get']
 	};
 	constructModulePermissions($scope, $scope.access, permissions);
 	
@@ -74,7 +74,7 @@ uracApp.controller('uracMembersModuleDevCtrl', ['$scope', '$cookies', '$localSto
 	
 	$scope.access.owner = {};
 	var permissions = {
-		"listTenants": ['dashboard', '/tenant/list', 'get']
+		"listTenants": ['urac', '/tenant/list', 'get']
 	};
 	constructModulePermissions($scope, $scope.access.owner, permissions);
 	
