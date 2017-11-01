@@ -13,7 +13,7 @@ serviceUracApp.service('tokensModuleDevHelper', ['ngDataApi', '$timeout', '$cook
 				"params": {
 					"start": currentScope.startLimit,
 					"limit": currentScope.endLimit,
-					"tCode": tCode,
+					"tenantCode": tCode,
 					"__env": currentScope.currentSelectedEnvironment.toUpperCase()
 				}
 			};
@@ -88,7 +88,7 @@ serviceUracApp.service('tokensModuleDevHelper', ['ngDataApi', '$timeout', '$cook
 			"routeName": "/urac/owner/admin/tokens/delete",
 			"proxy": true,
 			"params": {
-				"tCode": tCode,
+				"tenantCode": tCode,
 				"__env": currentScope.currentSelectedEnvironment.toUpperCase(),
 				"tokenId": data._id
 			}
@@ -113,7 +113,7 @@ serviceUracApp.service('tokensModuleDevHelper', ['ngDataApi', '$timeout', '$cook
 			"method": "del",
 			"proxy": true,
 			"params": {
-				"tCode": tCode,
+				"tenantCode": tCode,
 				"__env": currentScope.currentSelectedEnvironment.toUpperCase(),
 				'tokenId': '%id%'
 			},

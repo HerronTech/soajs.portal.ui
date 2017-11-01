@@ -111,7 +111,7 @@ uracApp.controller('tenantMembersModuleDevCtrl', ['$scope', 'ngDataApi', '$cooki
 				"routeName": "/urac/owner/admin/users/count",
 				"proxy": true,
 				"params": {
-					"tCode": $cookies.getObject('urac_merchant', { 'domain': interfaceDomain }).code,
+					"tenantCode": $cookies.getObject('urac_merchant', { 'domain': interfaceDomain }).code,
 					"__env": $scope.members.currentSelectedEnvironment.toUpperCase()
 				}
 			};
@@ -337,7 +337,7 @@ uracApp.controller('uracAclModuleDevCtrl', ['$scope', '$routeParams', 'ngDataApi
 					"routeName": "/urac/owner/admin/getUser",
 					"params": {
 						"uId": $routeParams.uId,
-						"tCode": tCode,
+						"tenantCode": tCode,
 						"__env": $scope.selectedEnv
 					}
 				};
@@ -353,7 +353,7 @@ uracApp.controller('uracAclModuleDevCtrl', ['$scope', '$routeParams', 'ngDataApi
 							"proxy": true,
 							"routeName": "/urac/owner/admin/group/list",
 							"params": {
-								"tCode": tCode,
+								"tenantCode": tCode,
 								"__env": $scope.selectedEnv
 							}
 						}, function (error, response) {
@@ -460,7 +460,7 @@ uracApp.controller('uracAclModuleDevCtrl', ['$scope', '$routeParams', 'ngDataApi
 				"routeName": "/urac/owner/admin/editUserConfig",
 				"proxy": true,
 				"params": {
-					"tCode": tCode,
+					"tenantCode": tCode,
 					"__env": $scope.selectedEnv,
 					"uId": $scope.user['_id']
 				},
@@ -528,7 +528,7 @@ uracApp.controller('uracAclModuleDevCtrl', ['$scope', '$routeParams', 'ngDataApi
 					"routeName": "/urac/owner/admin/editUserConfig",
 					"proxy": true,
 					"params": {
-						"tCode": tCode,
+						"tenantCode": tCode,
 						"__env": $scope.selectedEnv,
 						"uId": $scope.user['_id']
 					},
