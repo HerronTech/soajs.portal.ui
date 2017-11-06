@@ -291,7 +291,7 @@ soajsApp.controller('soajsAppController', ['$scope', '$location', '$timeout', '$
 				if ($scope.pillar && $scope.pillar.toLowerCase() === 'operate') {
 					getSendDataFromServer($scope, ngDataApi, {
 						"method": "get",
-						"routeName": "/dashboard/permissions/get",
+						"routeName": "/key/permissions/get",
 						"params": {"envCode": envRecord.code.toLowerCase()}
 					}, function (error, response) {
 						if (error) {
