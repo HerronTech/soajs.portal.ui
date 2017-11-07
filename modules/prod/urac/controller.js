@@ -375,6 +375,7 @@ uracApp.controller('uracAclModuleProdCtrl', ['$scope', '$routeParams', 'ngDataAp
 			getUserGroupInfo(function () {
 				getSendDataFromServer($scope, ngDataApi, {
 					"method": "get",
+					"proxy": true,
 					"routeName": "/urac/tenant/getUserAclInfo",
 					"params": {
 						"tenantId": $cookies.getObject('urac_merchant', { 'domain': interfaceDomain }).id
