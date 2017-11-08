@@ -13,7 +13,7 @@ serviceUracApp.service('tenantMembersModuleProdHelper', ['ngDataApi', '$timeout'
 				"start": currentScope.startLimit,
 				"limit": currentScope.endLimit,
 				"__env": currentScope.currentSelectedEnvironment.toUpperCase(),
-				"tCode": tCode
+				"tenantCode": tCode
 			}
 		};
 		getSendDataFromServer(currentScope, ngDataApi, opts, function (error, response) {
@@ -111,7 +111,7 @@ serviceUracApp.service('tenantMembersModuleProdHelper', ['ngDataApi', '$timeout'
 			"routeName": "/urac/owner/admin/group/list",
 			"proxy": true,
 			"params": {
-				"tCode": tCode,
+				"tenantCode": tCode,
 				"__env": currentScope.currentSelectedEnvironment.toUpperCase()
 			}
 		};
@@ -119,7 +119,7 @@ serviceUracApp.service('tenantMembersModuleProdHelper', ['ngDataApi', '$timeout'
 		getSendDataFromServer(currentScope, ngDataApi, opts, function (error, response) {
 			overlayLoading.hide();
 			if (error) {
-				currentScope.displayAlert('danger', error.code, true, 'urac', error.message);
+				currentScope.form.displayAlert('danger', error.code, true, 'urac', error.message);
 			}
 			else {
 				var grps = [];
@@ -157,7 +157,7 @@ serviceUracApp.service('tenantMembersModuleProdHelper', ['ngDataApi', '$timeout'
 									"routeName": "/urac/owner/admin/addUser",
 									"proxy": true,
 									"params": {
-										"tCode": tCode,
+										"tenantCode": tCode,
 										"__env": currentScope.currentSelectedEnvironment.toUpperCase()
 									},
 									"data": postData
@@ -203,7 +203,7 @@ serviceUracApp.service('tenantMembersModuleProdHelper', ['ngDataApi', '$timeout'
 			"routeName": "/urac/owner/admin/group/list",
 			"proxy": true,
 			"params": {
-				"tCode": tCode,
+				"tenantCode": tCode,
 				"__env": currentScope.currentSelectedEnvironment.toUpperCase()
 			}
 		};
@@ -263,7 +263,7 @@ serviceUracApp.service('tenantMembersModuleProdHelper', ['ngDataApi', '$timeout'
 									"routeName": "/urac/owner/admin/editUser",
 									"proxy": true,
 									"params": {
-										"tCode": tCode,
+										"tenantCode": tCode,
 										"__env": currentScope.currentSelectedEnvironment.toUpperCase(),
 										"uId": data['_id']
 									},
@@ -306,7 +306,7 @@ serviceUracApp.service('tenantMembersModuleProdHelper', ['ngDataApi', '$timeout'
 			'routeName': "/urac/owner/admin/changeUserStatus",
 			"proxy": true,
 			"params": {
-				"tCode": tCode,
+				"tenantCode": tCode,
 				"__env": currentScope.currentSelectedEnvironment.toUpperCase(),
 				'uId': '%id%',
 				'status': 'active'
@@ -330,7 +330,7 @@ serviceUracApp.service('tenantMembersModuleProdHelper', ['ngDataApi', '$timeout'
 			'routeName': "/urac/owner/admin/changeUserStatus",
 			"proxy": true,
 			"params": {
-				"tCode": tCode,
+				"tenantCode": tCode,
 				"__env": currentScope.currentSelectedEnvironment.toUpperCase(),
 				'uId': '%id%', 'status': 'inactive'
 			},

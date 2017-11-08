@@ -11,7 +11,7 @@ serviceUracApp.service('tenantGroupsModuleQaHelper', ['ngDataApi', '$timeout', '
 				"routeName": "/urac/owner/admin/group/list",
 				"proxy": true,
 				"params": {
-					"tCode": tCode,
+					"tenantCode": tCode,
 					"__env": currentScope.currentSelectedEnvironment.toUpperCase()
 				}
 			};
@@ -99,7 +99,7 @@ serviceUracApp.service('tenantGroupsModuleQaHelper', ['ngDataApi', '$timeout', '
 							"routeName": "/urac/owner/admin/group/add",
 							"proxy": true,
 							"params": {
-								"tCode": tCode,
+								"tenantCode": tCode,
 								"__env": currentScope.currentSelectedEnvironment.toUpperCase()
 							},
 							"data": postData
@@ -158,7 +158,7 @@ serviceUracApp.service('tenantGroupsModuleQaHelper', ['ngDataApi', '$timeout', '
 							"routeName": "/urac/owner/admin/group/edit",
 							"proxy": true,
 							"params": {
-								"tCode": tCode,
+								"tenantCode": tCode,
 								"__env": currentScope.currentSelectedEnvironment.toUpperCase(),
 								"gId": data['_id']
 							},
@@ -200,7 +200,7 @@ serviceUracApp.service('tenantGroupsModuleQaHelper', ['ngDataApi', '$timeout', '
 			'routeName': "/urac/owner/admin/group/delete",
 			"proxy": true,
 			"params": {
-				"tCode": tCode,
+				"tenantCode": tCode,
 				"__env": currentScope.currentSelectedEnvironment.toUpperCase(),
 				'gId': '%id%'
 			},
@@ -222,7 +222,7 @@ serviceUracApp.service('tenantGroupsModuleQaHelper', ['ngDataApi', '$timeout', '
 			"routeName": "/urac/owner/admin/group/delete",
 			"proxy": true,
 			"params": {
-				"tCode": tCode,
+				"tenantCode": tCode,
 				"__env": currentScope.currentSelectedEnvironment.toUpperCase(),
 				"gId": data._id
 			}
@@ -246,7 +246,7 @@ serviceUracApp.service('tenantGroupsModuleQaHelper', ['ngDataApi', '$timeout', '
 			"routeName": "/urac/owner/admin/listUsers",
 			"proxy": true,
 			"params": {
-				"tCode": tCode,
+				"tenantCode": tCode,
 				"__env": currentScope.currentSelectedEnvironment.toUpperCase()
 			}
 		};
@@ -291,7 +291,7 @@ serviceUracApp.service('tenantGroupsModuleQaHelper', ['ngDataApi', '$timeout', '
 									"routeName": "/urac/owner/admin/group/addUsers",
 									"proxy": true,
 									"params": {
-										"tCode": tCode,
+										"tenantCode": tCode,
 										"__env": currentScope.currentSelectedEnvironment.toUpperCase()
 									},
 									"data": postData
