@@ -157,6 +157,14 @@ var myAccountNav = [
 		'scripts': ['modules/dashboard/myAccount/config.js', 'modules/dashboard/myAccount/controller.js']
 	},
 	{
+		'id': 'register',
+		'label': 'Register',
+		'url': '#/register',
+		'tplPath': 'modules/dashboard/myAccount/directives/register.tmpl',
+		'scripts': ['modules/dashboard/myAccount/config.js', 'modules/dashboard/myAccount/controller.js'],
+		'guestMenu': true
+	},
+	{
 		'id': 'forgot_password',
 		//'label': 'Forgot Password',
 		'url': '#/forgotPw',
