@@ -197,6 +197,14 @@ var myAccountNav = [
 		'guestMenu': false
 	},
 	{
+		'id': 'validate_join',
+		'label': 'Validate Join Email',
+		'url': '#/join/validate',
+		'tplPath': 'modules/dashboard/myAccount/directives/validate.tmpl',
+		'scripts': ['modules/dashboard/myAccount/config.js', 'modules/dashboard/myAccount/controller.js'],
+		'guestMenu': false
+	},
+	{
 		'id': 'myAccount',
 		'checkPermission': {
 			'service': 'urac',

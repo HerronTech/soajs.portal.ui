@@ -260,7 +260,23 @@ myAccountApp.controller('myAccountCtrl', ['$scope', '$timeout', '$modal', 'ngDat
 	}]);
 
 myAccountApp.controller('validateCtrl', ['$scope', 'ngDataApi', '$route', 'isUserLoggedIn', function ($scope, ngDataApi, $route, isUserLoggedIn) {
-	
+
+	$scope.valiadteJoin = function() {
+		getSendDataFromServer(ngDataApi, {
+			"method": "get",
+			"routeName": "/urac/join/validate",
+			"params": {"token": $route.current.params.token}
+		}, function(error, response) {
+			if(error) {
+				$scope.$parent.displayAlert('danger', error.message);
+			}
+			else {
+				$scope.$parent.displayAlert('success', 'Your Email was Validated Successfully. You can login now');
+				$scope.$parent.go("/login");
+			}
+		});
+	};
+
 	$scope.validateChangeEmail = function () {
 		getSendDataFromServer($scope, ngDataApi, {
 			"method": "get",
@@ -278,8 +294,13 @@ myAccountApp.controller('validateCtrl', ['$scope', 'ngDataApi', '$route', 'isUse
 			}
 		});
 	};
-	
-	$scope.validateChangeEmail();
+
+	if($route.current.originalPath ==='/join/validate'){
+		$scope.valiadteJoin();
+	}
+	else if($route.current.originalPath === '/changeEmail/validate'){
+		$scope.validateChangeEmail();
+	}
 }]);
 
 myAccountApp.controller('loginCtrl', ['$scope', 'ngDataApi', '$cookies', 'isUserLoggedIn', '$localStorage', function ($scope, ngDataApi, $cookies, isUserLoggedIn, $localStorage) {
