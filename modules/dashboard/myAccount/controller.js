@@ -261,13 +261,13 @@ myAccountApp.controller('myAccountCtrl', ['$scope', '$timeout', '$modal', 'ngDat
 
 myAccountApp.controller('validateCtrl', ['$scope', 'ngDataApi', '$route', 'isUserLoggedIn', function ($scope, ngDataApi, $route, isUserLoggedIn) {
 
-	$scope.valiadteJoin = function() {
-		getSendDataFromServer(ngDataApi, {
+	$scope.valiadteJoin = function () {
+		getSendDataFromServer($scope, ngDataApi, {
 			"method": "get",
 			"routeName": "/urac/join/validate",
-			"params": {"token": $route.current.params.token}
-		}, function(error, response) {
-			if(error) {
+			"params": { "token": $route.current.params.token }
+		}, function (error, response) {
+			if (error) {
 				$scope.$parent.displayAlert('danger', error.message);
 			}
 			else {
@@ -295,10 +295,10 @@ myAccountApp.controller('validateCtrl', ['$scope', 'ngDataApi', '$route', 'isUse
 		});
 	};
 
-	if($route.current.originalPath ==='/join/validate'){
+	if ($route.current.originalPath === '/join/validate') {
 		$scope.valiadteJoin();
 	}
-	else if($route.current.originalPath === '/changeEmail/validate'){
+	else if ($route.current.originalPath === '/changeEmail/validate') {
 		$scope.validateChangeEmail();
 	}
 }]);
