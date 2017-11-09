@@ -1,7 +1,6 @@
 "use strict";
-var uracModuleDev = uiModuleDev + '/urac';
-
-var uracModuleDevTranslation = {
+var uracModulePortal = uiModulePortal + '/urac';
+var uracModulePortalTranslation = {
 	"uracManagement": {
 		"ENG": "Urac Management",
 		"FRA": "Urac Management"
@@ -223,16 +222,16 @@ var uracModuleDevTranslation = {
 	}
 };
 
-for (var attrname in uracModuleDevTranslation) {
-	translation[attrname] = uracModuleDevTranslation[attrname];
+for (var attrname in uracModulePortalTranslation) {
+	translation[attrname] = uracModulePortalTranslation[attrname];
 }
 
-var uracModuleDevNav = [
+var uracModulePortalNav = [
 	{
 		'id': 'urac-management',
 		'label': translation.uracManagement[LANG],
 		'url': '#/urac-management',
-		'tplPath': uracModuleDev + '/directives/listTenants.tmpl',
+		'tplPath': uracModulePortal + '/directives/listTenants.tmpl',
 		'icon': 'users',
 		// 'checkPermission': {
 		// 	'service': 'urac',
@@ -248,14 +247,14 @@ var uracModuleDevNav = [
 		'contentMenu': true,
 		'tracker': true,
 		'order': 100,
-		'scripts': [uracModuleDev + '/config.js', uracModuleDev + '/controller.js'],
+		'scripts': [uracModulePortal + '/config.js', uracModulePortal + '/controller.js'],
 		'ancestor': [translation.home[LANG]]
 	},
 	{
 		'id': 'urac-tenant-management',
 		'label': translation.uracTenantManagement[LANG],
 		'url': '#/urac-management/members',
-		'tplPath': uracModuleDev + '/directives/members.tmpl',
+		'tplPath': uracModulePortal + '/directives/members.tmpl',
 		'pillar': {
 			'name': 'operate',
 			'label': translation.operate[LANG],
@@ -263,11 +262,11 @@ var uracModuleDevNav = [
 		},
 		'tracker': true,
 		'scripts': [
-			uracModuleDev + '/config.js',
-			uracModuleDev + '/controller.js',
-			uracModuleDev + '/services/members.js',
-			uracModuleDev + '/services/groups.js',
-			uracModuleDev + '/services/tokens.js'
+			uracModulePortal + '/config.js',
+			uracModulePortal + '/controller.js',
+			uracModulePortal + '/services/members.js',
+			uracModulePortal + '/services/groups.js',
+			uracModulePortal + '/services/tokens.js'
 		],
 		'ancestor': [translation.home[LANG]]
 	},
@@ -275,7 +274,7 @@ var uracModuleDevNav = [
 		'id': 'urac-user-acl',
 		'label': 'Edit User Acl',
 		'url': '#/urac-management/:uId/editUserAcl',
-		'tplPath': uracModuleDev + '/directives/editUserAcl.tmpl',
+		'tplPath': uracModulePortal + '/directives/editUserAcl.tmpl',
 		'tracker': true,
 		'pillar': {
 			'name': 'operate',
@@ -283,12 +282,12 @@ var uracModuleDevNav = [
 			'position': 4
 		},
 		'scripts': [
-			uracModuleDev + '/config.js',
-			uracModuleDev + '/controller.js',
-			uracModuleDev + '/services/acl.js'
+			uracModulePortal + '/config.js',
+			uracModulePortal + '/controller.js',
+			uracModulePortal + '/services/acl.js'
 		],
 		'ancestor': [translation.home[LANG], translation.uracTenantManagement[LANG]]
 	}
 ];
 
-navigation = navigation.concat(uracModuleDevNav);
+navigation = navigation.concat(uracModulePortalNav);

@@ -49,9 +49,13 @@ var uiModuleDev = 'modules/dev';
 var uiModuleStg = 'modules/stg';
 var uiModuleProd = 'modules/prod';
 var uiModuleQa = 'modules/qa';
+var uiModulePortal = 'modules/portal';
 
 var modules = {
 	"operate": {
+		"portal": {
+			urac: uiModulePortal + '/urac/install.js'
+		},
 		"dev": {
 			urac: uiModuleDev + '/urac/install.js',
 			contentManagement: uiModuleDev + '/contentManagement/install.js'

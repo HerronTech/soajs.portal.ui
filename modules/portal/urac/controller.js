@@ -1,7 +1,7 @@
 "use strict";
 
 var uracApp = soajsApp.components;
-uracApp.controller("uracListTenantsModuleDevCtrl", ['$scope', 'ngDataApi', '$cookies', '$localStorage', function ($scope, ngDataApi, $cookies, $localStorage) {
+uracApp.controller("uracListTenantsModulePortalCtrl", ['$scope', 'ngDataApi', '$cookies', '$localStorage', function ($scope, ngDataApi, $cookies, $localStorage) {
 	$scope.$parent.isUserLoggedIn();
 	$scope.access = {};
 	$scope.selectedEnv = $scope.$parent.currentSelectedEnvironment.toUpperCase();
@@ -67,11 +67,11 @@ uracApp.controller("uracListTenantsModuleDevCtrl", ['$scope', 'ngDataApi', '$coo
 	
 }]);
 
-uracApp.controller('uracMembersModuleDevCtrl', ['$scope', '$cookies', '$localStorage', function ($scope, $cookies, $localStorage) {
+uracApp.controller('uracMembersModulePortalCtrl', ['$scope', '$cookies', '$localStorage', function ($scope, $cookies, $localStorage) {
 	$scope.$parent.isUserLoggedIn();
 	$scope.access = {};
 	$scope.selectedEnv = $scope.$parent.currentSelectedEnvironment.toUpperCase();
-	constructModulePermissions($scope, $scope.access, usersModuleDevConfig.permissions, $scope.selectedEnv);
+	constructModulePermissions($scope, $scope.access, usersModulePortalConfig.permissions, $scope.selectedEnv);
 	
 	$scope.access.owner = {};
 	var permissions = {
@@ -87,11 +87,11 @@ uracApp.controller('uracMembersModuleDevCtrl', ['$scope', '$cookies', '$localSto
 	};
 }]);
 
-uracApp.controller('tenantMembersModuleDevCtrl', ['$scope', 'ngDataApi', '$cookies', 'tenantMembersModuleDevHelper',
-	function ($scope, ngDataApi, $cookies, tenantMembersModuleDevHelper) {
+uracApp.controller('tenantMembersModulePortalCtrl', ['$scope', 'ngDataApi', '$cookies', 'tenantMembersModulePortalHelper',
+	function ($scope, ngDataApi, $cookies, tenantMembersModulePortalHelper) {
 		$scope.startLimit = 0;
 		$scope.totalCount = 0;
-		$scope.endLimit = usersModuleDevConfig.apiEndLimit;
+		$scope.endLimit = usersModulePortalConfig.apiEndLimit;
 		$scope.keywords;
 		
 		$scope.members = angular.extend($scope);
@@ -137,11 +137,11 @@ uracApp.controller('tenantMembersModuleDevCtrl', ['$scope', 'ngDataApi', '$cooki
 			if (firstCall) {
 				$scope.members.pageActive = 1;
 				$scope.members.countMembers(function () {
-					tenantMembersModuleDevHelper.listMembers($scope.members, usersModuleDevConfig.users, firstCall);
+					tenantMembersModulePortalHelper.listMembers($scope.members, usersModulePortalConfig.users, firstCall);
 				});
 			}
 			else {
-				tenantMembersModuleDevHelper.listMembers($scope.members, usersModuleDevConfig.users, firstCall);
+				tenantMembersModulePortalHelper.listMembers($scope.members, usersModulePortalConfig.users, firstCall);
 			}
 			
 		};
@@ -152,24 +152,24 @@ uracApp.controller('tenantMembersModuleDevCtrl', ['$scope', 'ngDataApi', '$cooki
 		};
 		
 		$scope.members.addMember = function () {
-			tenantMembersModuleDevHelper.addMember($scope.members, usersModuleDevConfig.users, true);
+			tenantMembersModulePortalHelper.addMember($scope.members, usersModulePortalConfig.users, true);
 		};
 		
 		$scope.members.editAcl = function (data) {
-			//tenantMembersModuleDevHelper.editAcl($scope.members, data);
+			//tenantMembersModulePortalHelper.editAcl($scope.members, data);
 			$scope.members.$parent.go('/urac-management/' + data._id + '/editUserAcl');
 		};
 		
 		$scope.members.editMember = function (data) {
-			tenantMembersModuleDevHelper.editMember($scope.members, usersModuleDevConfig.users, data, true)
+			tenantMembersModulePortalHelper.editMember($scope.members, usersModulePortalConfig.users, data, true)
 		};
 		
 		$scope.members.activateMembers = function () {
-			tenantMembersModuleDevHelper.activateMembers($scope.members);
+			tenantMembersModulePortalHelper.activateMembers($scope.members);
 		};
 		
 		$scope.members.deactivateMembers = function () {
-			tenantMembersModuleDevHelper.deactivateMembers($scope.members);
+			tenantMembersModulePortalHelper.deactivateMembers($scope.members);
 		};
 		
 		//call default method
@@ -181,32 +181,32 @@ uracApp.controller('tenantMembersModuleDevCtrl', ['$scope', 'ngDataApi', '$cooki
 		
 	}]);
 
-uracApp.controller('tenantGroupsModuleDevCtrl', ['$scope', '$cookies', 'tenantGroupsModuleDevHelper', function ($scope, $cookies, tenantGroupsModuleDevHelper) {
+uracApp.controller('tenantGroupsModulePortalCtrl', ['$scope', '$cookies', 'tenantGroupsModulePortalHelper', function ($scope, $cookies, tenantGroupsModulePortalHelper) {
 	$scope.groups = angular.extend($scope);
 	$scope.groups.access = $scope.$parent.access;
 	
 	$scope.groups.listGroups = function () {
-		tenantGroupsModuleDevHelper.listGroups($scope.groups, usersModuleDevConfig.groups);
+		tenantGroupsModulePortalHelper.listGroups($scope.groups, usersModulePortalConfig.groups);
 	};
 	
 	$scope.groups.addGroup = function () {
-		tenantGroupsModuleDevHelper.addGroup($scope.groups, usersModuleDevConfig.groups, true);
+		tenantGroupsModulePortalHelper.addGroup($scope.groups, usersModulePortalConfig.groups, true);
 	};
 	
 	$scope.groups.editGroup = function (data) {
-		tenantGroupsModuleDevHelper.editGroup($scope.groups, usersModuleDevConfig.groups, data, true);
+		tenantGroupsModulePortalHelper.editGroup($scope.groups, usersModulePortalConfig.groups, data, true);
 	};
 	
 	$scope.groups.deleteGroups = function (data) {
-		tenantGroupsModuleDevHelper.deleteGroups($scope.groups);
+		tenantGroupsModulePortalHelper.deleteGroups($scope.groups);
 	};
 	
 	$scope.groups.delete1Group = function (data) {
-		tenantGroupsModuleDevHelper.delete1Group($scope.groups, data, true);
+		tenantGroupsModulePortalHelper.delete1Group($scope.groups, data, true);
 	};
 	
 	$scope.groups.assignUsers = function (data) {
-		tenantGroupsModuleDevHelper.assignUsers($scope.groups, usersModuleDevConfig.groups, data, {
+		tenantGroupsModulePortalHelper.assignUsers($scope.groups, usersModulePortalConfig.groups, data, {
 			'name': 'reloadTenantMembers',
 			params: {}
 		});
@@ -220,11 +220,11 @@ uracApp.controller('tenantGroupsModuleDevCtrl', ['$scope', '$cookies', 'tenantGr
 	
 }]);
 
-uracApp.controller('tokensModuleDevCtrl', ['$scope', 'ngDataApi', '$cookies', 'tokensModuleDevHelper', function ($scope, ngDataApi, $cookies, tokensModuleDevHelper) {
+uracApp.controller('tokensModulePortalCtrl', ['$scope', 'ngDataApi', '$cookies', 'tokensModulePortalHelper', function ($scope, ngDataApi, $cookies, tokensModulePortalHelper) {
 	$scope.startLimit = 0;
 	$scope.totalCount = 0;
-	$scope.endLimit = usersModuleDevConfig.apiEndLimit;
-	$scope.increment = usersModuleDevConfig.apiEndLimit;
+	$scope.endLimit = usersModulePortalConfig.apiEndLimit;
+	$scope.increment = usersModulePortalConfig.apiEndLimit;
 	$scope.showNext = true;
 	$scope.pageActive = 1;
 	
@@ -273,15 +273,15 @@ uracApp.controller('tokensModuleDevCtrl', ['$scope', 'ngDataApi', '$cookies', 't
 			$scope.tokens.startLimit = 0;
 			$scope.tokens.pageActive = 1;
 		}
-		tokensModuleDevHelper.listTokens($scope.tokens, tokensModuleDevConfig, firstCall);
+		tokensModulePortalHelper.listTokens($scope.tokens, tokensModulePortalConfig, firstCall);
 	};
 	
 	$scope.tokens.deleteTokens = function () {
-		tokensModuleDevHelper.deleteTokens($scope.tokens);
+		tokensModulePortalHelper.deleteTokens($scope.tokens);
 	};
 	
 	$scope.tokens.delete1Token = function (data) {
-		tokensModuleDevHelper.delete1Token($scope.tokens, data, true);
+		tokensModulePortalHelper.delete1Token($scope.tokens, data, true);
 	};
 	
 	setTimeout(function () {
@@ -292,8 +292,8 @@ uracApp.controller('tokensModuleDevCtrl', ['$scope', 'ngDataApi', '$cookies', 't
 	
 }]);
 
-uracApp.controller('uracAclModuleDevCtrl', ['$scope', '$routeParams', 'ngDataApi', '$cookies', 'memAclModuleDevHelper', '$route', '$localStorage',
-	function ($scope, $routeParams, ngDataApi, $cookies, memAclModuleDevHelper, $route, $localStorage) {
+uracApp.controller('uracAclModulePortalCtrl', ['$scope', '$routeParams', 'ngDataApi', '$cookies', 'memAclModulePortalHelper', '$route', '$localStorage',
+	function ($scope, $routeParams, ngDataApi, $cookies, memAclModulePortalHelper, $route, $localStorage) {
 		$scope.$parent.isUserLoggedIn();
 		$scope.msg = {};
 		$scope.user = {};
@@ -301,7 +301,7 @@ uracApp.controller('uracAclModuleDevCtrl', ['$scope', '$routeParams', 'ngDataApi
 		$scope.allGroups = [];
 		$scope.pckName = '';
 		$scope.environments_codes = [];
-		$scope.uracModuleDev = uracModuleDev;
+		$scope.uracModulePortal = uracModulePortal;
 		
 		var tCode = $cookies.getObject('urac_merchant', { 'domain': interfaceDomain }).code;
 		$scope.selectedEnv = $scope.$parent.currentSelectedEnvironment.toUpperCase();
@@ -407,7 +407,7 @@ uracApp.controller('uracAclModuleDevCtrl', ['$scope', '$routeParams', 'ngDataApi
 									oneApplication.userPackageAcl = angular.copy($scope.user.config.packages[oneApplication.package].acl);
 								}
 							}
-							memAclModuleDevHelper.renderPermissionsWithServices($scope, oneApplication);
+							memAclModulePortalHelper.renderPermissionsWithServices($scope, oneApplication);
 							overlayLoading.hide();
 						});
 					}
@@ -428,11 +428,11 @@ uracApp.controller('uracAclModuleDevCtrl', ['$scope', '$routeParams', 'ngDataApi
 		};
 		
 		$scope.checkForGroupDefault = function (aclFill, service, grp, val, myApi) {
-			memAclModuleDevHelper.checkForGroupDefault(aclFill, service, grp, val, myApi);
+			memAclModulePortalHelper.checkForGroupDefault(aclFill, service, grp, val, myApi);
 		};
 		
 		$scope.applyRestriction = function (aclFill, service) {
-			memAclModuleDevHelper.applyRestriction(aclFill, service);
+			memAclModulePortalHelper.applyRestriction(aclFill, service);
 		};
 		
 		$scope.clearUserAcl = function () {
@@ -502,7 +502,7 @@ uracApp.controller('uracAclModuleDevCtrl', ['$scope', '$routeParams', 'ngDataApi
 				var tmpObj = {
 					'services': oneApplication.aclFill
 				};
-				var result = memAclModuleDevHelper.prepareAclObjToSave(tmpObj);
+				var result = memAclModulePortalHelper.prepareAclObjToSave(tmpObj);
 				if (result.valid) {
 					var packageName = oneApplication.package;
 					if (!postData.config.packages[packageName]) {
