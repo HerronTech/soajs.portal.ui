@@ -24,14 +24,14 @@ function configureRouteNavigation(navigation, scope) {
 	navigation.forEach(function (navigationEntry) {
 		if (navigationEntry.scripts && navigationEntry.scripts.length > 0) {
 			navigationEntry.env = navigationEntry.scripts[0].split("/")[1];
-			
+
 			if(navigationEntry.env === 'modules'){
 				if(navigationEntry.scripts[0].split("/")[0] === 'engine'){
 					navigationEntry.env = 'dashboard';
 				}
 			}
 			
-			if (navigationEntry.env === 'dashboard') {
+			if (['dashboard', 'portal'].indexOf(navigationEntry.env) !== -1) {
 				addRoute(navigationEntry);
 			}
 			else if (scope) {
@@ -291,8 +291,10 @@ soajsApp.controller('soajsAppController', ['$scope', '$location', '$timeout', '$
 				if ($scope.pillar && $scope.pillar.toLowerCase() === 'operate') {
 					getSendDataFromServer($scope, ngDataApi, {
 						"method": "get",
-						"routeName": "/key/permissions/get",
-						"params": {"envCode": envRecord.code.toLowerCase()}
+						"routeName": "/key/permission/get",
+						"params": {
+							"envCode": envRecord.code.toLowerCase()
+						}
 					}, function (error, response) {
 						if (error) {
 							$scope.displayAlert('danger', error.code, true, 'dashboard', error.message);
