@@ -8,7 +8,7 @@ serviceUracApp.service('tenantMembersModulePortalHelper', ['ngDataApi', '$timeou
 		var opts = {
 			"method": "get",
 			"routeName": "/urac/owner/admin/listUsers",
-			"proxy": true,
+			"proxy": false,
 			"params": {
 				"start": currentScope.startLimit,
 				"limit": currentScope.endLimit,
@@ -109,7 +109,7 @@ serviceUracApp.service('tenantMembersModulePortalHelper', ['ngDataApi', '$timeou
 		var opts = {
 			"method": "get",
 			"routeName": "/urac/owner/admin/group/list",
-			"proxy": true,
+			"proxy": false,
 			"params": {
 				"tenantCode": tCode,
 				"__env": currentScope.currentSelectedEnvironment.toUpperCase()
@@ -155,7 +155,7 @@ serviceUracApp.service('tenantMembersModulePortalHelper', ['ngDataApi', '$timeou
 								var opts = {
 									"method": "send",
 									"routeName": "/urac/owner/admin/addUser",
-									"proxy": true,
+									"proxy": false,
 									"params": {
 										"tenantCode": tCode,
 										"__env": currentScope.currentSelectedEnvironment.toUpperCase()
@@ -201,7 +201,7 @@ serviceUracApp.service('tenantMembersModulePortalHelper', ['ngDataApi', '$timeou
 		var opts = {
 			"method": "get",
 			"routeName": "/urac/owner/admin/group/list",
-			"proxy": true,
+			"proxy": false,
 			"params": {
 				"tenantCode": tCode,
 				"__env": currentScope.currentSelectedEnvironment.toUpperCase()
@@ -261,7 +261,7 @@ serviceUracApp.service('tenantMembersModulePortalHelper', ['ngDataApi', '$timeou
 								var opts = {
 									"method": "send",
 									"routeName": "/urac/owner/admin/editUser",
-									"proxy": true,
+									"proxy": false,
 									"params": {
 										"tenantCode": tCode,
 										"__env": currentScope.currentSelectedEnvironment.toUpperCase(),
@@ -304,7 +304,7 @@ serviceUracApp.service('tenantMembersModulePortalHelper', ['ngDataApi', '$timeou
 		overlayLoading.show();
 		var config = {
 			'routeName': "/urac/owner/admin/changeUserStatus",
-			"proxy": true,
+			"proxy": false,
 			"params": {
 				"tenantCode": tCode,
 				"__env": currentScope.currentSelectedEnvironment.toUpperCase(),
@@ -328,7 +328,7 @@ serviceUracApp.service('tenantMembersModulePortalHelper', ['ngDataApi', '$timeou
 		overlayLoading.show();
 		var config = {
 			'routeName': "/urac/owner/admin/changeUserStatus",
-			"proxy": true,
+			"proxy": false,
 			"params": {
 				"tenantCode": tCode,
 				"__env": currentScope.currentSelectedEnvironment.toUpperCase(),

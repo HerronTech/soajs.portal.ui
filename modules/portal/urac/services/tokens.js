@@ -9,7 +9,7 @@ serviceUracApp.service('tokensModulePortalHelper', ['ngDataApi', '$timeout', '$c
 			var opts = {
 				"method": "get",
 				"routeName": "/urac/owner/admin/tokens/list",
-				"proxy": true,
+				"proxy": false,
 				"params": {
 					"start": currentScope.startLimit,
 					"limit": currentScope.endLimit,
@@ -86,7 +86,7 @@ serviceUracApp.service('tokensModulePortalHelper', ['ngDataApi', '$timeout', '$c
 		var opts = {
 			"method": "del",
 			"routeName": "/urac/owner/admin/tokens/delete",
-			"proxy": true,
+			"proxy": false,
 			"params": {
 				"tenantCode": tCode,
 				"__env": currentScope.currentSelectedEnvironment.toUpperCase(),
@@ -111,7 +111,7 @@ serviceUracApp.service('tokensModulePortalHelper', ['ngDataApi', '$timeout', '$c
 		var config = {
 			'routeName': "/urac/owner/admin/tokens/delete",
 			"method": "del",
-			"proxy": true,
+			"proxy": false,
 			"params": {
 				"tenantCode": tCode,
 				"__env": currentScope.currentSelectedEnvironment.toUpperCase(),

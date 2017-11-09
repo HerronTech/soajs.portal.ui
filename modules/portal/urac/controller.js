@@ -50,8 +50,6 @@ uracApp.controller("uracListTenantsModulePortalCtrl", ['$scope', 'ngDataApi', '$
 			$scope.$parent.go('/urac-management/members');
 		}
 	};
-	console.log('$scope.access');
-	console.log($scope.access);
 	if ($scope.access.listTenants) {
 		if ($cookies.getObject('urac_merchant', { 'domain': interfaceDomain }) && $cookies.getObject('urac_merchant', { 'domain': interfaceDomain }).code) {
 			$scope.$parent.go('/urac-management/members');
@@ -78,9 +76,9 @@ uracApp.controller('uracMembersModulePortalCtrl', ['$scope', '$cookies', '$local
 		"listTenants": ['urac', '/tenant/list', 'get']
 	};
 	constructModulePermissions($scope, $scope.access.owner, permissions);
-	
 	$scope.tName = $cookies.getObject('urac_merchant', { 'domain': interfaceDomain }).name;
 	$scope.userCookie = $localStorage.soajs_user;
+
 	$scope.backToList = function () {
 		$cookies.remove('urac_merchant', { 'domain': interfaceDomain });
 		$scope.$parent.go('/urac-management', { 'domain': interfaceDomain });
@@ -110,7 +108,7 @@ uracApp.controller('tenantMembersModulePortalCtrl', ['$scope', 'ngDataApi', '$co
 			var opts = {
 				"method": "get",
 				"routeName": "/urac/owner/admin/users/count",
-				"proxy": true,
+				"proxy": false,
 				"params": {
 					"tenantCode": $cookies.getObject('urac_merchant', { 'domain': interfaceDomain }).code,
 					"__env": $scope.members.currentSelectedEnvironment.toUpperCase()
@@ -334,7 +332,7 @@ uracApp.controller('uracAclModulePortalCtrl', ['$scope', '$routeParams', 'ngData
 			function getUserGroupInfo(cb) {
 				var opts = {
 					"method": "get",
-					"proxy": true,
+					"proxy": false,
 					"routeName": "/urac/owner/admin/getUser",
 					"params": {
 						"uId": $routeParams.uId,
@@ -351,7 +349,7 @@ uracApp.controller('uracAclModulePortalCtrl', ['$scope', '$routeParams', 'ngData
 						$scope.user = response;
 						getSendDataFromServer($scope, ngDataApi, {
 							"method": "get",
-							"proxy": true,
+							"proxy": false,
 							"routeName": "/urac/owner/admin/group/list",
 							"params": {
 								"tenantCode": tCode,
@@ -376,7 +374,7 @@ uracApp.controller('uracAclModulePortalCtrl', ['$scope', '$routeParams', 'ngData
 			getUserGroupInfo(function () {
 				getSendDataFromServer($scope, ngDataApi, {
 					"method": "get",
-					"proxy": true,
+					"proxy": false,
 					"routeName": "/urac/tenant/getUserAclInfo",
 					"params": {
 						"tenantId": $cookies.getObject('urac_merchant', { 'domain': interfaceDomain }).id
@@ -460,7 +458,7 @@ uracApp.controller('uracAclModulePortalCtrl', ['$scope', '$routeParams', 'ngData
 			var opts = {
 				"method": "send",
 				"routeName": "/urac/owner/admin/editUserConfig",
-				"proxy": true,
+				"proxy": false,
 				"params": {
 					"tenantCode": tCode,
 					"__env": $scope.selectedEnv,
@@ -528,7 +526,7 @@ uracApp.controller('uracAclModulePortalCtrl', ['$scope', '$routeParams', 'ngData
 				var opts = {
 					"method": "send",
 					"routeName": "/urac/owner/admin/editUserConfig",
-					"proxy": true,
+					"proxy": false,
 					"params": {
 						"tenantCode": tCode,
 						"__env": $scope.selectedEnv,

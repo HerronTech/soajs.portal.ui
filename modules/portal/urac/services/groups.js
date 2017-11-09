@@ -9,7 +9,7 @@ serviceUracApp.service('tenantGroupsModulePortalHelper', ['ngDataApi', '$timeout
 			var opts = {
 				"method": "get",
 				"routeName": "/urac/owner/admin/group/list",
-				"proxy": true,
+				"proxy": false,
 				"params": {
 					"tenantCode": tCode,
 					"__env": currentScope.currentSelectedEnvironment.toUpperCase()
@@ -97,7 +97,7 @@ serviceUracApp.service('tenantGroupsModulePortalHelper', ['ngDataApi', '$timeout
 						var opts = {
 							"method": "send",
 							"routeName": "/urac/owner/admin/group/add",
-							"proxy": true,
+							"proxy": false,
 							"params": {
 								"tenantCode": tCode,
 								"__env": currentScope.currentSelectedEnvironment.toUpperCase()
@@ -156,7 +156,7 @@ serviceUracApp.service('tenantGroupsModulePortalHelper', ['ngDataApi', '$timeout
 						var opts = {
 							"method": "send",
 							"routeName": "/urac/owner/admin/group/edit",
-							"proxy": true,
+							"proxy": false,
 							"params": {
 								"tenantCode": tCode,
 								"__env": currentScope.currentSelectedEnvironment.toUpperCase(),
@@ -198,7 +198,7 @@ serviceUracApp.service('tenantGroupsModulePortalHelper', ['ngDataApi', '$timeout
 		var config = {
 			"method": "del",
 			'routeName': "/urac/owner/admin/group/delete",
-			"proxy": true,
+			"proxy": false,
 			"params": {
 				"tenantCode": tCode,
 				"__env": currentScope.currentSelectedEnvironment.toUpperCase(),
@@ -220,7 +220,7 @@ serviceUracApp.service('tenantGroupsModulePortalHelper', ['ngDataApi', '$timeout
 		var opts = {
 			"method": "del",
 			"routeName": "/urac/owner/admin/group/delete",
-			"proxy": true,
+			"proxy": false,
 			"params": {
 				"tenantCode": tCode,
 				"__env": currentScope.currentSelectedEnvironment.toUpperCase(),
@@ -244,7 +244,7 @@ serviceUracApp.service('tenantGroupsModulePortalHelper', ['ngDataApi', '$timeout
 		var opts = {
 			"method": "get",
 			"routeName": "/urac/owner/admin/listUsers",
-			"proxy": true,
+			"proxy": false,
 			"params": {
 				"tenantCode": tCode,
 				"__env": currentScope.currentSelectedEnvironment.toUpperCase()
@@ -289,7 +289,7 @@ serviceUracApp.service('tenantGroupsModulePortalHelper', ['ngDataApi', '$timeout
 								var opts = {
 									"method": "send",
 									"routeName": "/urac/owner/admin/group/addUsers",
-									"proxy": true,
+									"proxy": false,
 									"params": {
 										"tenantCode": tCode,
 										"__env": currentScope.currentSelectedEnvironment.toUpperCase()

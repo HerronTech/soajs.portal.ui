@@ -206,7 +206,7 @@ soajsApp.service('ngDataApi', ['$http', '$cookies', '$localStorage', 'Upload', f
 				config.params.access_token = access_token;
 			}
 		}
-		
+
 		if (opts.proxy) {
 			if (!config.params.__env) {
 				var env;
