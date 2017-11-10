@@ -31,22 +31,9 @@ var navigation = [
 			'position': 3
 		},
 		'order': 2,
-		'checkPermission': {
-			'service': 'dashboard',
-			'route': '/environment/list'
-		},
 		'preferredEnv': "DASHBOARD",
 		'scripts': ['modules/dashboard/home/config.js', 'modules/dashboard/home/controller.js'],
 		'tplPath': 'modules/dashboard/home/directives/noenv.tmpl'
-	},
-	{
-		'id': 'help2',
-		'label': translation.help[LANG],
-		'url': '#/help',
-		'preferredEnv': "DASHBOARD",
-		'scripts': ['modules/dashboard/home/config.js', 'modules/dashboard/home/controller.js'],
-		'tplPath': 'modules/dashboard/home/directives/help.tmpl',
-		'footerMenu': true
 	}
 ];
 

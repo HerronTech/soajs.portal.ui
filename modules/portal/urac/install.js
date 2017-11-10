@@ -233,11 +233,11 @@ var uracModulePortalNav = [
 		'url': '#/urac-management',
 		'tplPath': uracModulePortal + '/directives/listTenants.tmpl',
 		'icon': 'users',
-		// 'checkPermission': {
-		// 	'service': 'urac',
-		// 	'route': '/owner/admin/listUsers',
-		// 	'method': 'get'
-		// },
+		'checkPermission': {
+			'service': 'urac',
+			'route': '/owner/admin/listUsers',
+			'method': 'get'
+		},
 		'pillar': {
 			'name': 'operate',
 			'label': translation.operate[LANG],

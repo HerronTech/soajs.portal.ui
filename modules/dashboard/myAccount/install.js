@@ -220,4 +220,5 @@ var myAccountNav = [
 		'private': true
 	}
 ];
-navigation = navigation.concat(myAccountNav);
+
+// navigation = navigation.concat(myAccountNav);
