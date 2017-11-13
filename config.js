@@ -58,20 +58,16 @@ var modules = {
 			urac: uiModulePortal + '/urac/install.js'
 		},
 		"dev": {
-			urac: uiModuleDev + '/urac/install.js',
-			contentManagement: uiModuleDev + '/contentManagement/install.js'
+			urac: uiModuleDev + '/urac/install.js'
 		},
 		"qa": {
-			urac: uiModuleQa + '/urac/install.js',
-			contentManagement: uiModuleQa + '/contentManagement/install.js'
+			urac: uiModuleQa + '/urac/install.js'
 		},
 		"stg": {
-			urac: uiModuleStg + '/urac/install.js',
-			contentManagement: uiModuleStg + '/contentManagement/install.js'
+			urac: uiModuleStg + '/urac/install.js'
 		},
 		"prod": {
-			urac: uiModuleProd + '/urac/install.js',
-			contentManagement: uiModuleProd + '/contentManagement/install.js'
+			urac: uiModuleProd + '/urac/install.js'
 		}
 	},
 	"common": {
