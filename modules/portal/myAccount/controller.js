@@ -260,7 +260,7 @@ myAccountApp.controller('myAccountPortalCtrl', ['$scope', '$timeout', '$modal', 
 	}]);
 
 myAccountApp.controller('validatePortalCtrl', ['$scope', 'ngDataApi', '$route', 'isUserLoggedIn', function ($scope, ngDataApi, $route, isUserLoggedIn) {
-
+	
 	$scope.valiadteJoin = function () {
 		getSendDataFromServer($scope, ngDataApi, {
 			"method": "get",
@@ -276,7 +276,7 @@ myAccountApp.controller('validatePortalCtrl', ['$scope', 'ngDataApi', '$route', 
 			}
 		});
 	};
-
+	
 	$scope.validateChangeEmail = function () {
 		getSendDataFromServer($scope, ngDataApi, {
 			"method": "get",
@@ -294,7 +294,7 @@ myAccountApp.controller('validatePortalCtrl', ['$scope', 'ngDataApi', '$route', 
 			}
 		});
 	};
-
+	
 	if ($route.current.originalPath === '/join/validate') {
 		$scope.valiadteJoin();
 	}
@@ -331,7 +331,7 @@ myAccountApp.controller('loginPortalCtrl', ['$scope', 'ngDataApi', '$cookies', '
 					}
 					else {
 						authValue = response.data;
-
+						
 						var options2 = {
 							"method": "post",
 							"routeName": "/oauth/token",
@@ -354,13 +354,13 @@ myAccountApp.controller('loginPortalCtrl', ['$scope', 'ngDataApi', '$cookies', '
 								uracLogin();
 							}
 						});
-
+						
 					}
 				});
 			}
 			
 			loginOauth();
-
+			
 			function uracLogin() {
 				var options = {
 					"method": "get",
@@ -383,7 +383,7 @@ myAccountApp.controller('loginPortalCtrl', ['$scope', 'ngDataApi', '$cookies', '
 					}
 				});
 			}
-
+			
 			function getKeys() {
 				getSendDataFromServer($scope, ngDataApi, {
 					"method": "get",
@@ -419,12 +419,9 @@ myAccountApp.controller('loginPortalCtrl', ['$scope', 'ngDataApi', '$cookies', '
 					else {
 						$localStorage.acl_access = response.acl;
 						$localStorage.environments = response.environments;
-						// response.environments.forEach(function (oneEnv) {
-						// 	if (oneEnv.code.toLowerCase() === 'portal') {
-						// 		$cookies.putObject("myEnv", oneEnv, { 'domain': interfaceDomain });
-						// 	}
-						// });
-						$cookies.putObject("myEnv", response.environments[0], { 'domain': interfaceDomain });
+						if (response.environments && response.environments[0]) {
+							$cookies.putObject("myEnv", response.environments[0], { 'domain': interfaceDomain });
+						}
 						$scope.$parent.$emit("loadUserInterface", {});
 						$scope.$parent.$emit('refreshWelcome', {});
 					}
@@ -566,9 +563,9 @@ myAccountApp.controller('resetPwPortalCtrl', ['$scope', 'ngDataApi', '$routePara
 }]);
 
 myAccountApp.controller('registerPortalCtrl', ['$scope', 'ngDataApi', 'isUserLoggedIn', function ($scope, ngDataApi, isUserLoggedIn) {
-
+	
 	var formConfig = registerConfig.formConf;
-
+	
 	formConfig.actions = [
 		{
 			'type': 'submit',
@@ -602,7 +599,7 @@ myAccountApp.controller('registerPortalCtrl', ['$scope', 'ngDataApi', 'isUserLog
 			}
 		}
 	];
-
+	
 	if (!isUserLoggedIn()) {
 		buildForm($scope, null, formConfig);
 	}

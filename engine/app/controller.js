@@ -590,10 +590,7 @@ soajsApp.controller('soajsAppController', ['$scope', '$location', '$timeout', '$
 			}
 			else {
 				var user = $localStorage.soajs_user;
-				if ($scope.footerMenu.selectedMenu === '#/login') {
-					$scope.footerMenu.selectedMenu = '#/dashboard';
-				}
-				
+
 				$scope.enableInterface = true;
 				$scope.userFirstName = user.firstName;
 				$scope.userLastName = user.lastName;
@@ -738,10 +735,10 @@ soajsApp.controller('soajsAppController', ['$scope', '$location', '$timeout', '$
 				
 				getSendDataFromServer($scope, ngDataApi, apiParams, function (error, response) {
 					if (error) {
-						cb(false);
+						return cb(false);
 					}
 					else {
-						cb(true);
+						return cb(true);
 					}
 				});
 			}
@@ -754,13 +751,14 @@ soajsApp.controller('soajsAppController', ['$scope', '$location', '$timeout', '$
 						$cookies.remove('myEnv', { 'domain': interfaceDomain });
 						$cookies.remove('soajs_dashboard_key', { 'domain': interfaceDomain });
 						$cookies.remove('soajsID', { 'domain': interfaceDomain });
-						$localStorage.soajs_user = null;
-						$localStorage.acl_access = null;
-						$localStorage.environments = null;
 						$cookies.remove('soajs_current_route', { 'domain': interfaceDomain });
 						$cookies.remove('soajs_envauth', { 'domain': interfaceDomain });
 						$cookies.remove('urac_merchant', { 'domain': interfaceDomain });
-						$scope.isUserLoggedIn();
+						$localStorage.soajs_user = null;
+						$localStorage.acl_access = null;
+						$localStorage.environments = null;
+						$scope.displayAlert('danger', translation.expiredSessionPleaseLogin[LANG]);
+						$scope.go("/login");
 					}
 				});
 			}
@@ -815,6 +813,7 @@ soajsApp.controller('welcomeCtrl', ['$scope', 'ngDataApi', '$cookies', '$localSt
 			$cookies.remove('soajs_auth', { 'domain': interfaceDomain });
 			$cookies.remove('soajs_current_route', { 'domain': interfaceDomain });
 			$cookies.remove('selectedInterval', { 'domain': interfaceDomain });
+			$cookies.remove('urac_merchant', { 'domain': interfaceDomain });
 			$localStorage.soajs_user = null;
 			$localStorage.acl_access = null;
 			$localStorage.environments = null;
@@ -860,7 +859,7 @@ soajsApp.controller('welcomeCtrl', ['$scope', 'ngDataApi', '$cookies', '$localSt
 		}
 		else {
 			clearData();
-			$scope.$parent.isUserLoggedIn();
+			$scope.go("/login");
 		}
 	};
 }]);
