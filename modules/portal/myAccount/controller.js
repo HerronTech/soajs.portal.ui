@@ -408,14 +408,9 @@ myAccountApp.controller('loginPortalCtrl', ['$scope', 'ngDataApi', '$cookies', '
 				}, function (error, response) {
 					overlayLoading.hide();
 					if (error) {
-						if(error.code === 600){
-							$localStorage.soajs_user = null;
-							$scope.$parent.displayAlert('danger', error.code, true, 'dashboard', "Login Failed !");
-							ngDataApi.logoutUser($scope);
-						}
-						else {
-							$scope.$parent.displayAlert('danger', error.code, true, 'dashboard', error.message);
-						}
+						$localStorage.soajs_user = null;
+						ngDataApi.logoutUser($scope);
+						$scope.$parent.displayAlert('danger', error.code, true, 'dashboard', error.message);
 					}
 					else {
 						$localStorage.acl_access = response.acl;
