@@ -372,8 +372,7 @@ myAccountApp.controller('loginPortalCtrl', ['$scope', 'ngDataApi', '$cookies', '
 				getSendDataFromServer($scope, ngDataApi, options, function (error, response) {
 					if (error) {
 						overlayLoading.hide();
-						$cookies.remove('access_token', { 'domain': interfaceDomain });
-						$cookies.remove('refresh_token', { 'domain': interfaceDomain });
+						ngDataApi.logoutUser($scope);
 						$scope.$parent.displayAlert('danger', error.code, true, 'urac', error.message);
 					}
 					else {
@@ -392,8 +391,7 @@ myAccountApp.controller('loginPortalCtrl', ['$scope', 'ngDataApi', '$cookies', '
 				}, function (error, response) {
 					if (error) {
 						overlayLoading.hide();
-						$cookies.remove('access_token', { 'domain': interfaceDomain });
-						$cookies.remove('refresh_token', { 'domain': interfaceDomain });
+						ngDataApi.logoutUser($scope);
 						$scope.$parent.displayAlert('danger', error.code, true, 'dashboard', error.message);
 					}
 					else {
@@ -411,9 +409,7 @@ myAccountApp.controller('loginPortalCtrl', ['$scope', 'ngDataApi', '$cookies', '
 					overlayLoading.hide();
 					if (error) {
 						$localStorage.soajs_user = null;
-						$cookies.remove('access_token', { 'domain': interfaceDomain });
-						$cookies.remove('refresh_token', { 'domain': interfaceDomain });
-						$cookies.remove('soajs_dashboard_key', { 'domain': interfaceDomain });
+						ngDataApi.logoutUser($scope);
 						$scope.$parent.displayAlert('danger', error.code, true, 'dashboard', error.message);
 					}
 					else {
@@ -430,7 +426,7 @@ myAccountApp.controller('loginPortalCtrl', ['$scope', 'ngDataApi', '$cookies', '
 		}
 	}];
 	
-	if (!isUserLoggedIn()) {
+	if (!isUserLoggedIn($scope)) {
 		buildForm($scope, null, formConfig);
 	}
 	else {
@@ -469,7 +465,7 @@ myAccountApp.controller('forgotPwPortalCtrl', ['$scope', 'ngDataApi', 'isUserLog
 		}
 	}];
 	
-	if (!isUserLoggedIn()) {
+	if (!isUserLoggedIn($scope)) {
 		buildForm($scope, null, formConfig);
 	}
 	else {
@@ -512,7 +508,7 @@ myAccountApp.controller('setPasswordPortalCtrl', ['$scope', 'ngDataApi', '$route
 		}
 	}];
 	
-	if (!isUserLoggedIn()) {
+	if (!isUserLoggedIn($scope)) {
 		buildForm($scope, null, formConfig);
 	}
 	else {
@@ -553,7 +549,7 @@ myAccountApp.controller('resetPwPortalCtrl', ['$scope', 'ngDataApi', '$routePara
 		}
 	}];
 	
-	if (!isUserLoggedIn()) {
+	if (!isUserLoggedIn($scope)) {
 		buildForm($scope, null, formConfig);
 	}
 	else {
@@ -600,7 +596,7 @@ myAccountApp.controller('registerPortalCtrl', ['$scope', 'ngDataApi', 'isUserLog
 		}
 	];
 	
-	if (!isUserLoggedIn()) {
+	if (!isUserLoggedIn($scope)) {
 		buildForm($scope, null, formConfig);
 	}
 	else {

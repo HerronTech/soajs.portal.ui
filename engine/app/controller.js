@@ -576,12 +576,7 @@ soajsApp.controller('soajsAppController', ['$scope', '$location', '$timeout', '$
 		
 		$scope.isUserLoggedIn = function (stopRedirect) {
 			if (!$cookies.get('access_token', { 'domain': interfaceDomain }) || !$localStorage.soajs_user) {
-				$cookies.remove('access_token', { 'domain': interfaceDomain });
-				$cookies.remove('soajs_dashboard_key', { 'domain': interfaceDomain });
-				$cookies.remove('urac_merchant', { 'domain': interfaceDomain });
-				$localStorage.soajs_user = null;
-				$localStorage.acl_access = null;
-				$scope.enableInterface = false;
+				ngDataApi.logoutUser($scope);
 				if (!stopRedirect) {
 					console.log('Session has Expired');
 					$scope.displayAlert('danger', translation.expiredSessionPleaseLogin[LANG]);
