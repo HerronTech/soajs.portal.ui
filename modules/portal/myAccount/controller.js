@@ -410,7 +410,7 @@ myAccountApp.controller('loginPortalCtrl', ['$scope', 'ngDataApi', '$cookies', '
 					if (error) {
 						$localStorage.soajs_user = null;
 						ngDataApi.logoutUser($scope);
-						$scope.$parent.displayAlert('danger', error.code, true, 'dashboard', error.message);
+						$scope.$parent.displayAlert('danger', "Login Failed !");
 					}
 					else {
 						$localStorage.acl_access = response.acl;
