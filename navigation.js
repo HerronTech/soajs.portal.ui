@@ -13,13 +13,6 @@ var navigation = [
 		'tracker': true
 	},
 	{
-		'id': 'login',
-		'label': translation.home[LANG],
-		'url': '#/login',
-		'tplPath': 'modules/dashboard/myAccount/directives/login.tmpl',
-		'scripts': ['modules/dashboard/myAccount/config.js', 'modules/dashboard/myAccount/controller.js']
-	},
-	{
 		'id': 'noEnv',
 		'label': 'No Environment Found',
 		'url': '#/home/env',
