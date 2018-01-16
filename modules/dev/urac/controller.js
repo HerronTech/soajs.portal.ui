@@ -50,8 +50,6 @@ uracApp.controller("uracListTenantsModuleDevCtrl", ['$scope', 'ngDataApi', '$coo
 			$scope.$parent.go('/urac-management/members');
 		}
 	};
-	console.log('$scope.access');
-	console.log($scope.access);
 	if ($scope.access.listTenants) {
 		if ($cookies.getObject('urac_merchant', { 'domain': interfaceDomain }) && $cookies.getObject('urac_merchant', { 'domain': interfaceDomain }).code) {
 			$scope.$parent.go('/urac-management/members');
