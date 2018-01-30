@@ -3,6 +3,7 @@
 soajsApp.service('ngDataApi', ['$http', '$cookies', '$localStorage', 'Upload', function ($http, $cookies, $localStorage, Upload) {
 	
 	function logoutUser(scope) {
+		$cookies.remove('soajs_username', {'domain': interfaceDomain});
 		$cookies.remove('access_token', { 'domain': interfaceDomain });
 		$cookies.remove('refresh_token', { 'domain': interfaceDomain });
 		$cookies.remove('soajs_dashboard_key', { 'domain': interfaceDomain });

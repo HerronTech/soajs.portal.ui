@@ -377,6 +377,7 @@ myAccountApp.controller('loginPortalCtrl', ['$scope', 'ngDataApi', '$cookies', '
 					}
 					else {
 						$localStorage.soajs_user = response;
+						$cookies.put("soajs_username", response.username, { 'domain': interfaceDomain });
 						//get dashboard keys
 						getKeys();
 					}
