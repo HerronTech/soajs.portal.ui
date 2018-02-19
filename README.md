@@ -1,6 +1,6 @@
 # soajs.portal.ui
 
-The SOAJS Portal UI provides runs in the portal environment and offers an interface built using Angular JS that allows administrators to conduct management operations and operators to operate on the different modules of the product deployed using SOAJS across multiple environments.
+The SOAJS Portal UI runs in the portal environment and offers an interface built using Angular JS that allows administrators to conduct management operations and operators to operate on the different modules of the product deployed using SOAJS across multiple environments.
 
 No need to deploy the portal multiple times when you have multiple environments for the same product. The portal UI is smart enough to communicate with systems deployed in multiple environments from the same interface.
 
