@@ -348,8 +348,8 @@ myAccountApp.controller('loginPortalCtrl', ['$scope', 'ngDataApi', '$cookies', '
 							}
 							else {
 								if (Object.hasOwnProperty.call(response, "access_token")) {
-									$cookies.put('access_token', response.access_token, { 'domain': interfaceDomain });
-									$cookies.put('refresh_token', response.refresh_token, { 'domain': interfaceDomain });
+									$cookies.put('portal_access_token', response.access_token, { 'domain': interfaceDomain });
+									$cookies.put('portal_refresh_token', response.refresh_token, { 'domain': interfaceDomain });
 								}
 								uracLogin();
 							}
@@ -377,7 +377,7 @@ myAccountApp.controller('loginPortalCtrl', ['$scope', 'ngDataApi', '$cookies', '
 					}
 					else {
 						$localStorage.soajs_user = response;
-						$cookies.put("soajs_username", response.username, { 'domain': interfaceDomain });
+						$cookies.put("soajs_portal_username", response.username, { 'domain': interfaceDomain });
 						//get dashboard keys
 						getKeys();
 					}
@@ -396,7 +396,7 @@ myAccountApp.controller('loginPortalCtrl', ['$scope', 'ngDataApi', '$cookies', '
 						$scope.$parent.displayAlert('danger', error.code, true, 'dashboard', error.message);
 					}
 					else {
-						$cookies.put("soajs_dashboard_key", response.extKey, { 'domain': interfaceDomain });
+						$cookies.put("soajs_portal_key", response.extKey, { 'domain': interfaceDomain });
 						getPermissions();
 					}
 				});
@@ -417,7 +417,7 @@ myAccountApp.controller('loginPortalCtrl', ['$scope', 'ngDataApi', '$cookies', '
 						$localStorage.acl_access = response.acl;
 						$localStorage.environments = response.environments;
 						if (response.environments && response.environments[0]) {
-							$cookies.putObject("myEnv", response.environments[0], { 'domain': interfaceDomain });
+							$cookies.putObject("portalMyEnv", response.environments[0], { 'domain': interfaceDomain });
 						}
 						$scope.$parent.$emit("loadUserInterface", {});
 						$scope.$parent.$emit('refreshWelcome', {});

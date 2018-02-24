@@ -95,7 +95,7 @@ soajsApp.controller('soajsAppController', ['$scope', '$location', '$timeout', '$
 		$scope.go = function (path) {
 			$scope.previousPage = $route.current.originalPath;
 			if (path) {
-				$cookies.put("soajs_current_route", path.replace("#", ""), { 'domain': interfaceDomain });
+				$cookies.put("soajs_portal_current_route", path.replace("#", ""), { 'domain': interfaceDomain });
 				$location.path(path.replace("#", ""));
 			}
 		};
@@ -221,7 +221,7 @@ soajsApp.controller('soajsAppController', ['$scope', '$location', '$timeout', '$
 		
 		$scope.rerenderMenuAfterEnvExclude = function (moduleMenu) {
 			var pillarInfo;
-			var envCode = $cookies.getObject("myEnv", { 'domain': interfaceDomain }).code;
+			var envCode = $cookies.getObject("portalMyEnv", { 'domain': interfaceDomain }).code;
 			moduleMenu.forEach(function (oneEntry) {
 				if (oneEntry.url && $location.url() === oneEntry.url.split("#")[1] && oneEntry.excludedEnvs && Array.isArray(oneEntry.excludedEnvs) && oneEntry.excludedEnvs.length > 0) {
 					if (oneEntry.excludedEnvs.indexOf(envCode.toLowerCase()) !== -1) {
@@ -264,13 +264,13 @@ soajsApp.controller('soajsAppController', ['$scope', '$location', '$timeout', '$
 									$scope.leftMenu.environments.splice(k, 1);
 								}
 							}
-							if ($cookies.getObject('myEnv', { 'domain': interfaceDomain }).code.replace(/\"/g, '').toLowerCase() === 'dashboard') {
-								$cookies.putObject('myEnv', $scope.leftMenu.environments[0], { 'domain': interfaceDomain });
+							if ($cookies.getObject('portalMyEnv', { 'domain': interfaceDomain }).code.replace(/\"/g, '').toLowerCase() === 'dashboard') {
+								$cookies.putObject('portalMyEnv', $scope.leftMenu.environments[0], { 'domain': interfaceDomain });
 							}
 						}
 						
-						if ($cookies.getObject('myEnv')) {
-							$scope.switchEnvironment($cookies.getObject('myEnv', { 'domain': interfaceDomain }));
+						if ($cookies.getObject('portalMyEnv')) {
+							$scope.switchEnvironment($cookies.getObject('portalMyEnv', { 'domain': interfaceDomain }));
 						}
 						else {
 							$scope.switchEnvironment($scope.leftMenu.environments[0]);
@@ -285,8 +285,8 @@ soajsApp.controller('soajsAppController', ['$scope', '$location', '$timeout', '$
 			if (envRecord) {
 				$scope.currentSelectedEnvironment = envRecord.code.toLowerCase();
 			}
-			if (!$cookies.getObject('myEnv', { 'domain': interfaceDomain }) || $cookies.getObject('myEnv', { 'domain': interfaceDomain }).code.toLowerCase() !== envRecord.code.toLowerCase()) {
-				$cookies.putObject('myEnv', envRecord, { 'domain': interfaceDomain });
+			if (!$cookies.getObject('portalMyEnv', { 'domain': interfaceDomain }) || $cookies.getObject('portalMyEnv', { 'domain': interfaceDomain }).code.toLowerCase() !== envRecord.code.toLowerCase()) {
+				$cookies.putObject('portalMyEnv', envRecord, { 'domain': interfaceDomain });
 				
 				if ($scope.pillar && $scope.pillar.toLowerCase() === 'operate') {
 					getSendDataFromServer($scope, ngDataApi, {
@@ -495,8 +495,8 @@ soajsApp.controller('soajsAppController', ['$scope', '$location', '$timeout', '$
 		
 		$scope.$on('$routeChangeStart', function (event, next, current) {
 			if (!current) {
-				$cookies.put("soajs_current_route", $location.url(), { 'domain': interfaceDomain });
-				var gotourl = $cookies.get("soajs_current_route", { 'domain': interfaceDomain });
+				$cookies.put("soajs_portal_current_route", $location.url(), { 'domain': interfaceDomain });
+				var gotourl = $cookies.get("soajs_portal_current_route", { 'domain': interfaceDomain });
 				//console.log("page reload event invoked ...");
 				$timeout(function () {
 					overlayLoading.show();
@@ -505,7 +505,7 @@ soajsApp.controller('soajsAppController', ['$scope', '$location', '$timeout', '$
 					doEnvPerNav(function () {
 						overlayLoading.hide();
 						if (gotourl) {
-							$cookies.put("soajs_current_route", gotourl, { 'domain': interfaceDomain });
+							$cookies.put("soajs_portal_current_route", gotourl, { 'domain': interfaceDomain });
 							$location.url(gotourl);
 						}
 					});
@@ -545,7 +545,7 @@ soajsApp.controller('soajsAppController', ['$scope', '$location', '$timeout', '$
 								if ($localStorage.environments) {
 									$localStorage.environments.forEach(function (oneEnv) {
 										if (oneEnv.code.toUpperCase() === $scope.navigation[i].preferredEnv.toUpperCase()) {
-											$cookies.putObject("myEnv", oneEnv, { 'domain': interfaceDomain });
+											$cookies.putObject("portalMyEnv", oneEnv, { 'domain': interfaceDomain });
 										}
 									});
 								}
@@ -570,12 +570,12 @@ soajsApp.controller('soajsAppController', ['$scope', '$location', '$timeout', '$
 					}
 				}
 				
-				$cookies.put("soajs_current_route", $location.path(), { 'domain': interfaceDomain });
+				$cookies.put("soajs_portal_current_route", $location.path(), { 'domain': interfaceDomain });
 			});
 		});
 		
 		$scope.isUserLoggedIn = function (stopRedirect) {
-			if (!$cookies.get('access_token', { 'domain': interfaceDomain }) || !$localStorage.soajs_user) {
+			if (!$cookies.get('portal_access_token', { 'domain': interfaceDomain }) || !$localStorage.soajs_user) {
 				ngDataApi.logoutUser($scope);
 				if (!stopRedirect) {
 					console.log('Session has Expired');
@@ -705,13 +705,13 @@ soajsApp.controller('soajsAppController', ['$scope', '$location', '$timeout', '$
 		}
 		
 		if (!$scope.currentSelectedEnvironment) {
-			if ($cookies.getObject("myEnv", { 'domain': interfaceDomain })) {
-				$scope.currentSelectedEnvironment = $cookies.getObject("myEnv", { 'domain': interfaceDomain }).code.toLowerCase();
+			if ($cookies.getObject("portalMyEnv", { 'domain': interfaceDomain })) {
+				$scope.currentSelectedEnvironment = $cookies.getObject("portalMyEnv", { 'domain': interfaceDomain }).code.toLowerCase();
 				
 				if (!$scope.currentDeployer) {
 					$scope.currentDeployer = { type: '' };
 				}
-				$scope.currentDeployer.type = $cookies.getObject("myEnv", { 'domain': interfaceDomain }).deployer.type;
+				$scope.currentDeployer.type = $cookies.getObject("portalMyEnv", { 'domain': interfaceDomain }).deployer.type;
 			}
 		}
 		
@@ -738,15 +738,15 @@ soajsApp.controller('soajsAppController', ['$scope', '$location', '$timeout', '$
 				});
 			}
 			
-			if ($cookies.get('access_token', { 'domain': interfaceDomain }) && $localStorage.soajs_user) {
+			if ($cookies.get('portal_access_token', { 'domain': interfaceDomain }) && $localStorage.soajs_user) {
 				var user = $localStorage.soajs_user;
 				getUser(user.username, function (result) {
 					if (!result) {
-						$cookies.remove('access_token', { 'domain': interfaceDomain });
-						$cookies.remove('myEnv', { 'domain': interfaceDomain });
-						$cookies.remove('soajs_dashboard_key', { 'domain': interfaceDomain });
+						$cookies.remove('portal_access_token', { 'domain': interfaceDomain });
+						$cookies.remove('portalMyEnv', { 'domain': interfaceDomain });
+						$cookies.remove('soajs_portal_key', { 'domain': interfaceDomain });
 						$cookies.remove('soajsID', { 'domain': interfaceDomain });
-						$cookies.remove('soajs_current_route', { 'domain': interfaceDomain });
+						$cookies.remove('soajs_portal_current_route', { 'domain': interfaceDomain });
 						$cookies.remove('soajs_envauth', { 'domain': interfaceDomain });
 						$cookies.remove('urac_merchant', { 'domain': interfaceDomain });
 						$localStorage.soajs_user = null;
@@ -800,13 +800,13 @@ soajsApp.controller('welcomeCtrl', ['$scope', 'ngDataApi', '$cookies', '$localSt
 		var user = $localStorage.soajs_user;
 		
 		function clearData() {
-			$cookies.remove('access_token', { 'domain': interfaceDomain });
-			$cookies.remove('refresh_token', { 'domain': interfaceDomain });
-			$cookies.remove('soajs_dashboard_key', { 'domain': interfaceDomain });
-			$cookies.remove('myEnv', { 'domain': interfaceDomain });
+			$cookies.remove('portal_access_token', { 'domain': interfaceDomain });
+			$cookies.remove('portal_refresh_token', { 'domain': interfaceDomain });
+			$cookies.remove('soajs_portal_key', { 'domain': interfaceDomain });
+			$cookies.remove('portalMyEnv', { 'domain': interfaceDomain });
 			$cookies.remove('soajsID', { 'domain': interfaceDomain });
-			$cookies.remove('soajs_auth', { 'domain': interfaceDomain });
-			$cookies.remove('soajs_current_route', { 'domain': interfaceDomain });
+			$cookies.remove('soajs_portal_auth', { 'domain': interfaceDomain });
+			$cookies.remove('soajs_portal_current_route', { 'domain': interfaceDomain });
 			$cookies.remove('selectedInterval', { 'domain': interfaceDomain });
 			$cookies.remove('urac_merchant', { 'domain': interfaceDomain });
 			$localStorage.soajs_user = null;
@@ -820,7 +820,7 @@ soajsApp.controller('welcomeCtrl', ['$scope', 'ngDataApi', '$cookies', '$localSt
 			
 			getSendDataFromServer($scope, ngDataApi, {
 				"method": "delete",
-				"routeName": "/oauth/refreshToken/" + $cookies.get("refresh_token", { 'domain': interfaceDomain }),
+				"routeName": "/oauth/refreshToken/" + $cookies.get("portal_refresh_token", { 'domain': interfaceDomain }),
 				"headers": {
 					"key": apiConfiguration.key
 				}
@@ -830,7 +830,7 @@ soajsApp.controller('welcomeCtrl', ['$scope', 'ngDataApi', '$cookies', '$localSt
 				}
 				getSendDataFromServer($scope, ngDataApi, {
 					"method": "delete",
-					"routeName": "/oauth/accessToken/" + $cookies.get("access_token", { 'domain': interfaceDomain }),
+					"routeName": "/oauth/accessToken/" + $cookies.get("portal_access_token", { 'domain': interfaceDomain }),
 					"headers": {
 						"key": apiConfiguration.key
 					}
