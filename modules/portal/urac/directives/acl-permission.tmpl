@@ -27,11 +27,11 @@
                             <span>
                                 <input ng-model="application.aclFill[oneEnv.code][service.name][method].apis[myApi.v].accessType" value="private" type="radio"/> {{translation.private[LANG]}}
                             </span>
-                            <span>
+                            <span ng-if="allGroups.length>0">
                                 <input ng-model="application.aclFill[oneEnv.code][service.name][method].apis[myApi.v].accessType" value="groups" type="radio"/> {{translation.groups[LANG]}}
                             </span>
 								</div>
-								<div class="grpsListingScroll" ng-class="{smallGrpsListingScroll: allGroups.length<3}" ng-show="application.aclFill[oneEnv.code][service.name][method].apis[myApi.v].accessType==='groups'">
+								<div ng-if="allGroups.length>0" class="grpsListingScroll" ng-class="{smallGrpsListingScroll: allGroups.length<3}" ng-show="application.aclFill[oneEnv.code][service.name][method].apis[myApi.v].accessType==='groups'">
 									<ul class="grpsListing">
 										<li ng-repeat="code in allGroups" ng-class-even="'evenLi'" ng-class-odd="'oddLi'">
 											<input ng-model="application.aclFill[oneEnv.code][service.name][method].apis[myApi.v].grpCodes[code]" type="checkbox"/>
@@ -63,12 +63,12 @@
                             <span>
                                 <input ng-model="application.aclFill[oneEnv.code][service.name].apis[myApi.v].accessType" value="private" type="radio"/> {{translation.private[LANG]}}
                             </span>
-                            <span>
+                            <span ng-if="allGroups.length>0">
                                 <input ng-model="application.aclFill[oneEnv.code][service.name].apis[myApi.v].accessType" value="groups" type="radio" ng-checked="application.aclFill[service.name].apis[myApi.v].accessType==='groups'"/>
 	                            {{translation.groups[LANG]}}
                             </span>
 						</div>
-						<div class="grpsListingScroll" ng-class="{smallGrpsListingScroll: allGroups.length<3}" ng-show="application.aclFill[oneEnv.code][service.name].apis[myApi.v].accessType==='groups'">
+						<div ng-if="allGroups.length>0" class="grpsListingScroll" ng-class="{smallGrpsListingScroll: allGroups.length<3}" ng-show="application.aclFill[oneEnv.code][service.name].apis[myApi.v].accessType==='groups'">
 							<ul class="grpsListing">
 								<li ng-repeat="code in allGroups" ng-class-even="'evenLi'" ng-class-odd="'oddLi'">
 									<input ng-model="application.aclFill[oneEnv.code][service.name].apis[myApi.v].grpCodes[code]" type="checkbox"/>

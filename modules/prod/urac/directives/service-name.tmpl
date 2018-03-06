@@ -12,7 +12,7 @@
         <span style="padding-left: 40px;">
             <input ng-model="application.aclFill[oneEnv.code][sName].accessType" value="private" type="radio" ng-checked="application.aclFill[oneEnv.code][sName].accessType==='private'"/> {{translation.private[LANG]}}
         </span>
-        <span style="padding-left: 40px;">
+        <span ng-if="allGroups.length>0" style="padding-left: 40px;">
             <input type="radio" ng-checked="application.aclFill[oneEnv.code][sName].accessType==='groups'" ng-model="application.aclFill[oneEnv.code][sName].accessType" value="groups"/> {{translation.groups[LANG]}}
         </span>
 	</div>
