@@ -27,7 +27,7 @@
                             <span>
                                 <input ng-model="application.aclFill[oneEnv.code][service.name][method].apis[myApi.v].accessType" value="private" type="radio"/> {{translation.private[LANG]}}
                             </span>
-                            <span>
+                            <span ng-if="allGroups.length>0">
                                 <input ng-model="application.aclFill[oneEnv.code][service.name][method].apis[myApi.v].accessType" value="groups" type="radio"/> {{translation.groups[LANG]}}
                             </span>
 								</div>
@@ -63,7 +63,7 @@
                             <span>
                                 <input ng-model="application.aclFill[oneEnv.code][service.name].apis[myApi.v].accessType" value="private" type="radio"/> {{translation.private[LANG]}}
                             </span>
-                            <span>
+                            <span ng-if="allGroups.length>0">
                                 <input ng-model="application.aclFill[oneEnv.code][service.name].apis[myApi.v].accessType" value="groups" type="radio" ng-checked="application.aclFill[service.name].apis[myApi.v].accessType==='groups'"/>
 	                            {{translation.groups[LANG]}}
                             </span>

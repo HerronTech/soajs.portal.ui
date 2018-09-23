@@ -356,16 +356,18 @@ uracApp.controller('uracAclModulePortalCtrl', ['$scope', '$routeParams', 'ngData
 								"__env": $scope.selectedEnv
 							}
 						}, function (error, response) {
+							overlayLoading.hide();
 							if (error) {
-								overlayLoading.hide();
-								$scope.$parent.displayAlert("danger", error.code, true, 'urac', error.message);
+								if (error.code !== 159) {
+									$scope.$parent.displayAlert("danger", error.code, true, 'urac', error.message);
+								}
 							}
-							else {
+							if (response) {
 								response.forEach(function (grpObj) {
 									$scope.allGroups.push(grpObj.code);
 								});
-								cb();
 							}
+							cb();
 						});
 					}
 				});

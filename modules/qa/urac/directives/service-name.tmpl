@@ -12,11 +12,11 @@
         <span style="padding-left: 40px;">
             <input ng-model="application.aclFill[oneEnv.code][sName].accessType" value="private" type="radio" ng-checked="application.aclFill[oneEnv.code][sName].accessType==='private'"/> {{translation.private[LANG]}}
         </span>
-        <span style="padding-left: 40px;">
+        <span ng-if="allGroups.length>0" style="padding-left: 40px;">
             <input type="radio" ng-checked="application.aclFill[oneEnv.code][sName].accessType==='groups'" ng-model="application.aclFill[oneEnv.code][sName].accessType" value="groups"/> {{translation.groups[LANG]}}
         </span>
 	</div>
-	<div class="grpsListingScroll" ng-class="{smallGrpsListingScroll: allGroups.length<3}" ng-show="application.aclFill[oneEnv.code][sName].accessType=='groups' ">
+	<div ng-if="allGroups.length>0" class="grpsListingScroll" ng-class="{smallGrpsListingScroll: allGroups.length<3}" ng-show="application.aclFill[oneEnv.code][sName].accessType=='groups' ">
 		<ul class="grpsListing">
 			<li ng-repeat="code in allGroups" ng-class-even="'evenLi'" ng-class-odd="'oddLi'">
 				<input type="checkbox" value="{{code}}" ng-model="application.aclFill[oneEnv.code][sName].grpCodes[code]" ng-checked="application.aclFill[oneEnv.code][sName]['access'].indexOf(code)!== -1"/>
