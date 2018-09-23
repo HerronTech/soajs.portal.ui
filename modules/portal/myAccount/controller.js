@@ -416,9 +416,9 @@ myAccountApp.controller('loginPortalCtrl', ['$scope', 'ngDataApi', '$cookies', '
 					else {
 						$localStorage.acl_access = response.acl;
 						$localStorage.environments = response.environments;
-						if (response.environments && response.environments[0]) {
-							$cookies.putObject("portalMyEnv", response.environments[0], { 'domain': interfaceDomain });
-						}
+						// if (response.environments && response.environments[0]) {
+						// 	$cookies.putObject("portalMyEnv", response.environments[0], { 'domain': interfaceDomain });
+						// }
 						$scope.$parent.$emit("loadUserInterface", {});
 						$scope.$parent.$emit('refreshWelcome', {});
 					}

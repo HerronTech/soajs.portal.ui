@@ -4,7 +4,8 @@
 			<!--<option ng-repeat="oneBtn in leftMenu.environments" data-ng-value="oneBtn.code" ng-selected="currentSelectedEnvironment === oneBtn.code">{{oneBtn.code}}</option>-->
 		<!--</select>-->
 		<div class="btn-group w100" dropdown>
-			<button id="split-button" type="button" class="btn btn-danger t-left" style="width:83%">{{currentSelectedEnvironment}}</button>
+			<button ng-if="currentSelectedEnvironment" id="split-button" type="button" class="btn btn-danger t-left" style="width:83%">{{currentSelectedEnvironment}}</button>
+			<button ng-if="!currentSelectedEnvironment" id="split-button" type="button" class="btn btn-danger t-left" style="width:83%">{{leftMenu.environments[0].code}}</button>
 			<button type="button" class="btn btn-danger" dropdown-toggle  style="width:17%">
 				<span class="caret"></span>
 				<span class="sr-only">Split button!</span>
