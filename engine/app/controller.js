@@ -826,7 +826,7 @@ soajsApp.controller('welcomeCtrl', ['$scope', 'ngDataApi', '$cookies', '$localSt
 				}
 			}, function (error, response) {
 				if (error) {
-					$scope.$parent.displayAlert('danger', error.code, true, 'dashboard', error.message);
+					// $scope.$parent.displayAlert('danger', error.code, true, 'dashboard', error.message);
 				}
 				getSendDataFromServer($scope, ngDataApi, {
 					"method": "delete",
@@ -838,7 +838,7 @@ soajsApp.controller('welcomeCtrl', ['$scope', 'ngDataApi', '$cookies', '$localSt
 					
 					overlayLoading.hide();
 					if (error) {
-						$scope.$parent.displayAlert('danger', error.code, true, 'dashboard', error.message);
+						// $scope.$parent.displayAlert('danger', error.code, true, 'dashboard', error.message);
 					}
 					
 					$scope.currentSelectedEnvironment = null;
